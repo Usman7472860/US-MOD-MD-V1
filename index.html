@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WhatsApp Bot Pairing</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      background: #0a0f1e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Segoe UI', sans-serif;
+      color: #fff;
+    }
+
+    .card {
+      background: #111827;
+      border: 1px solid #1f2937;
+      border-radius: 16px;
+      padding: 40px 36px;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 0 40px rgba(37,211,102,0.08);
+    }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .logo svg {
+      width: 52px;
+      height: 52px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #f9fafb;
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 0.85rem;
+      color: #6b7280;
+      margin-bottom: 28px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.82rem;
+      color: #9ca3af;
+      margin-bottom: 6px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 14px;
+      background: #1f2937;
+      border: 1px solid #374151;
+      border-radius: 10px;
+      color: #f9fafb;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border 0.2s;
+      margin-bottom: 16px;
+    }
+
+    input:focus {
+      border-color: #25d366;
+    }
+
+    input::placeholder {
+      color: #4b5563;
+    }
+
+    button {
+      width: 100%;
+      padding: 13px;
+      background: #25d366;
+      color: #000;
+      font-weight: 700;
+      font-size: 0.95rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.2s, opacity 0.2s;
+    }
+
+    button:hover { background: #1ebe5d; }
+    button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    /* Status area */
+    #status {
+      margin-top: 22px;
+      display: none;
+    }
+
+    .status-msg {
+      text-align: center;
+      font-size: 0.85rem;
+      color: #9ca3af;
+      margin-bottom: 14px;
+    }
+
+    /* Pairing code box */
+    #codeBox {
+      display: none;
+      background: #1f2937;
+      border: 1px solid #25d366;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    #codeBox p {
+      font-size: 0.78rem;
+      color: #6b7280;
+      margin-bottom: 10px;
+    }
+
+    #pairingCode {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: 6px;
+      color: #25d366;
+      font-family: 'Courier New', monospace;
+    }
+
+    #codeBox .hint {
+      font-size: 0.75rem;
+      color: #6b7280;
+      margin-top: 10px;
+      line-height: 1.5;
+    }
+
+    /* Spinner */
+    .spinner {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      border: 2px solid #374151;
+      border-top-color: #25d366;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      vertical-align: middle;
+      margin-right: 6px;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Success */
+    .connected-msg {
+      display: none;
+      text-align: center;
+      padding: 16px;
+      background: rgba(37,211,102,0.1);
+      border: 1px solid #25d366;
+      border-radius: 10px;
+      color: #25d366;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    /* Error */
+    .error-msg {
+      display: none;
+      text-align: center;
+      padding: 12px;
+      background: rgba(239,68,68,0.1);
+      border: 1px solid #ef4444;
+      border-radius: 10px;
+      color: #ef4444;
+      font-size: 0.85rem;
+      margin-top: 14px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <div class="logo">
+    <!-- WhatsApp icon -->
+    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="24" cy="24" r="24" fill="#25d366"/>
+      <path d="M34.5 13.5A14.85 14.85 0 0 0 24 9C15.72 9 9 15.72 9 24c0 2.64.69 5.22 2.01 7.5L9 39l7.74-2.04A14.94 14.94 0 0 0 24 39c8.28 0 15-6.72 15-15 0-4.02-1.56-7.8-4.5-10.5zm-10.5 23.1c-2.25 0-4.44-.6-6.36-1.74l-.45-.27-4.68 1.23 1.26-4.56-.3-.48A12.36 12.36 0 0 1 11.4 24c0-6.93 5.67-12.6 12.6-12.6 3.36 0 6.51 1.32 8.88 3.69a12.52 12.52 0 0 1 3.72 8.91c0 6.93-5.67 12.6-12.6 12.6zm6.9-9.42c-.39-.18-2.25-1.11-2.6-1.23-.36-.12-.61-.18-.87.18-.27.39-1.02 1.23-1.26 1.47-.24.27-.45.3-.84.12-.39-.18-1.65-.6-3.12-1.92-1.17-1.02-1.92-2.28-2.16-2.67-.21-.39-.03-.6.18-.78.18-.18.39-.45.57-.69.18-.21.24-.39.36-.63.12-.27.06-.48-.03-.69-.09-.18-.87-2.1-1.2-2.88-.3-.75-.63-.66-.87-.66h-.75c-.24 0-.63.09-.96.45-.33.39-1.26 1.23-1.26 3s1.29 3.48 1.47 3.72c.18.24 2.55 3.9 6.18 5.46.87.36 1.56.57 2.1.72.87.27 1.68.24 2.31.15.69-.09 2.25-.93 2.58-1.83.3-.9.3-1.65.21-1.83-.09-.15-.33-.24-.72-.42z" fill="white"/>
+    </svg>
+  </div>
+
+  <h1>WhatsApp Bot Login</h1>
+  <p class="subtitle">Apna number daal ke pairing code lo</p>
+
+  <label>Session ID</label>
+  <input type="text" id="sessionId" placeholder="e.g. user1" />
+
+  <label>WhatsApp Number (country code ke saath)</label>
+  <input type="tel" id="phone" placeholder="923001234567" />
+
+  <button id="btn" onclick="startPairing()">🔑 Pairing Code Lo</button>
+
+  <div id="status">
+    <p class="status-msg" id="statusMsg">
+      <span class="spinner"></span> Connecting...
+    </p>
+
+    <div id="codeBox">
+      <p>Yeh code WhatsApp mein daalo:</p>
+      <div id="pairingCode">----</div>
+      <p class="hint">
+        WhatsApp → Linked Devices → Link with phone number<br/>
+        Code 60 seconds mein expire hoga
+      </p>
+    </div>
+
+    <div class="connected-msg" id="connectedMsg">
+      ✅ Bot Successfully Connect Ho Gaya!
+    </div>
+  </div>
+
+  <div class="error-msg" id="errorMsg"></div>
+</div>
+
+<script>
+  // ⚠️ YAHAN APNI BOT SERVER KI IP/PORT DAALO
+  const BOT_API = 'http://YOUR_SERVER_IP:3000';
+
+  let pollInterval = null;
+  let currentSession = null;
+
+  async function startPairing() {
+    const sessionId = document.getElementById('sessionId').value.trim();
+    const phone = document.getElementById('phone').value.trim().replace(/[^0-9]/g, '');
+
+    if (!sessionId) return showError('Session ID daalo!');
+    if (!phone || phone.length < 10) return showError('Valid number daalo (country code ke saath)');
+
+    clearError();
+    setLoading(true);
+    currentSession = sessionId;
+
+    try {
+      const res = await fetch(`${BOT_API}/session/add`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ sessionId, phone }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok || !data.success) {
+        setLoading(false);
+        return showError(data.message || data.error || 'Kuch gadbad ho gayi');
+      }
+
+      // Status area show karo, polling shuru
+      document.getElementById('status').style.display = 'block';
+      document.getElementById('statusMsg').style.display = 'block';
+      startPolling(sessionId);
+
+    } catch (err) {
+      setLoading(false);
+      showError('Server se connect nahi ho saka. IP/port check karo.');
+    }
+  }
+
+  function startPolling(sessionId) {
+    if (pollInterval) clearInterval(pollInterval);
+
+    pollInterval = setInterval(async () => {
+      try {
+        const res = await fetch(`${BOT_API}/session/${sessionId}/code`);
+        const data = await res.json();
+
+        if (data.connected) {
+          // Connected!
+          clearInterval(pollInterval);
+          document.getElementById('statusMsg').style.display = 'none';
+          document.getElementById('codeBox').style.display = 'none';
+          document.getElementById('connectedMsg').style.display = 'block';
+          setLoading(false);
+
+        } else if (data.pairingCode) {
+          // Code aa gaya
+          document.getElementById('statusMsg').style.display = 'none';
+          document.getElementById('codeBox').style.display = 'block';
+          document.getElementById('pairingCode').textContent = data.pairingCode;
+
+        } else {
+          // Abhi bhi connecting
+          document.getElementById('statusMsg').style.display = 'block';
+        }
+
+      } catch (err) {
+        // Network error, keep trying
+      }
+    }, 2000);
+  }
+
+  function setLoading(state) {
+    document.getElementById('btn').disabled = state;
+    document.getElementById('btn').textContent = state ? '⏳ Wait karo...' : '🔑 Pairing Code Lo';
+  }
+
+  function showError(msg) {
+    const el = document.getElementById('errorMsg');
+    el.textContent = msg;
+    el.style.display = 'block';
+  }
+
+  function clearError() {
+    document.getElementById('errorMsg').style.display = 'none';
+  }
+</script>
+
+</body>
+</html>
