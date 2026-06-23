@@ -15,7 +15,8 @@ npm start
 |---------|-------------|
 | `.ping` | Bot speed & uptime check |
 | `.menu` or `.help` | Show command list |
-
+##owner
+<img width="959" height="1920" alt="owner" src="https://github.com/user-attachments/assets/d5b99907-4ef7-44e5-9ba7-82ab884d97ab" />
 ## Config
 
 Edit `settings.js`:
