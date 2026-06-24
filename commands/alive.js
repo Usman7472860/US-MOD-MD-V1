@@ -1,7 +1,7 @@
 const settings = require("../settings");
 async function aliveCommand(sock, chatId, message) {
     try {
-        const message1 = `*🤖 US MOD BOT is Active!*\n\n` +
+        const message1 = `*🤖 US MOD MD V1 is Active!*\n\n` +
                        `*Version:* ${settings.version}\n` +
                        `*Status:* Online\n` +
                        `*Mode:* Public\n\n` +
@@ -18,8 +18,8 @@ async function aliveCommand(sock, chatId, message) {
 
 
                 forwardedNewsletterMessageInfo: {
-                    newsletterJid: '120363161513685998@newsletter',
-                    newsletterName: 'US MOD BOT',
+                    newsletterJid: '120363428492698734@newsletter',
+                    newsletterName: 'US MOD MD V1',
                     serverMessageId: -1
                 }
             }
