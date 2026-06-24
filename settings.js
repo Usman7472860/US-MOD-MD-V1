@@ -9,8 +9,8 @@ const settings = {
   commandMode: "public",
   maxStoreMessages: 20,
   storeWriteInterval: 10000,
-  description: "US MOD MD V1",
-  version: "V1",
+  description: "US MOD MD V1 - WhatsApp Bot",
+  version: "3.0.7",
   updateZipUrl: "null",
   prefix: ".",
 
