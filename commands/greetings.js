@@ -1,6 +1,6 @@
 // ─── GREETINGS & CASUAL PHRASES HANDLER ────────────────────────────────────
 // Roman Urdu / Urdu casual WhatsApp phrases auto-reply system
-// Author: M USMAN CHACHAR
+// Author: M Usman Chachar
 
 // ── Greeting phrases list (jo log bolte hain) ──
 const greetingPhrases = [

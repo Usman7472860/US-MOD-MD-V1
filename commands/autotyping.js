@@ -1,5 +1,5 @@
 /**
- * US MOD BOT - A WhatsApp Bot
+ * US MOD MD V1 - A WhatsApp Bot
  * Autotyping Command - Shows fake typing status
  */
 
@@ -31,8 +31,8 @@ async function autotypingCommand(sock, chatId, message) {
 
 
                     forwardedNewsletterMessageInfo: {
-                        newsletterJid: '120363161513685998@newsletter',
-                        newsletterName: 'US MOD BOT',
+                        newsletterJid: '120363428492698734@newsletter',
+                        newsletterName: 'US MOD MD V1',
                         serverMessageId: -1
                     }
                 }
@@ -62,8 +62,8 @@ async function autotypingCommand(sock, chatId, message) {
 
 
                         forwardedNewsletterMessageInfo: {
-                            newsletterJid: '120363161513685998@newsletter',
-                            newsletterName: 'US MOD BOT',
+                            newsletterJid: '120363428492698734@newsletter',
+                            newsletterName: 'US MOD MD V1',
                             serverMessageId: -1
                         }
                     }
@@ -85,8 +85,8 @@ async function autotypingCommand(sock, chatId, message) {
 
 
                 forwardedNewsletterMessageInfo: {
-                    newsletterJid: '120363161513685998@newsletter',
-                    newsletterName: 'US MOD BOT',
+                    newsletterJid: '120363428492698734@newsletter',
+                    newsletterName: 'US MOD MD V1',
                     serverMessageId: -1
                 }
             }
@@ -100,8 +100,8 @@ async function autotypingCommand(sock, chatId, message) {
 
 
                 forwardedNewsletterMessageInfo: {
-                    newsletterJid: '120363161513685998@newsletter',
-                    newsletterName: 'US MOD BOT',
+                    newsletterJid: '120363428492698734@newsletter',
+                    newsletterName: 'US MOD MD V1',
                     serverMessageId: -1
                 }
             }
