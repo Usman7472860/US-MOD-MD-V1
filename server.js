@@ -27,7 +27,7 @@ const PLANS = {
 
 // Easypaisa account (owner ka — yahan apna number daalo)
 const EASYPAISA_NUMBER = process.env.EASYPAISA_NUMBER || '03xxxxxxxxx';
-const EASYPAISA_NAME   = process.env.EASYPAISA_NAME   || 'Usman Khan Chachar';
+const EASYPAISA_NAME   = process.env.EASYPAISA_NAME   || 'M Usman Chachar';
 
 // Store init
 store.readFromFile();
@@ -87,7 +87,7 @@ async function notifyOwnerPayment(paymentData) {
                       `⏰ *Time:* ${new Date().toLocaleString('en-PK')}\n\n` +
                       `✅ Approve: \`.approve ${paymentData.phone} ${paymentData.plan}\`\n` +
                       `❌ Reject: \`.reject ${paymentData.phone}\`\n\n` +
-                      `> 𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐔𝐬𝐦𝐚𝐧 𝐊𝐡𝐚𝐧 𝐂𝐡𝐚𝐜𝐡𝐚𝐫`
+                      `> 𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 M Usman Chachar`
             });
         }
     } catch (e) {

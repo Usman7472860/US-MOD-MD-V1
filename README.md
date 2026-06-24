@@ -1,6 +1,3 @@
-M USMAN CHACHAR 
-<img width="959" height="1920" alt="owner" src="https://github.com/user-attachments/assets/d5b99907-4ef7-44e5-9ba7-82ab884d97ab" />
-
 # US MOD MD - Fresh Bot
 
 Clean fresh bot with only 2 commands.
@@ -18,6 +15,7 @@ npm start
 |---------|-------------|
 | `.ping` | Bot speed & uptime check |
 | `.menu` or `.help` | Show command list |
+
 ## Config
 
 Edit `settings.js`:
