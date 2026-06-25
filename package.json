@@ -1,7 +1,7 @@
 {
-  "name": "us-mod-md-v1",
+  "name": "us-mod-md",
   "version": "3.0.7",
-  "description": "US MOD MD - WhatsApp Bot by M Usman Chachar",
+  "description": "US MOD MD - WhatsApp Bot by USMAN KHAN CHACHAR",
   "main": "index.js",
   "scripts": {
     "start": "node --max-old-space-size=180 --optimize-for-size --expose-gc index.js",
@@ -15,7 +15,7 @@
   "keywords": [
     "whatsapp-bot"
   ],
-  "author": "M Usman Chachar",
+  "author": "USMAN KHAN CHACHAR",
   "license": "MIT",
   "dependencies": {
     "@adiwajshing/keyed-db": "^0.2.4",

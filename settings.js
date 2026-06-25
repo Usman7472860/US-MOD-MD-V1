@@ -1,15 +1,15 @@
 const settings = {
-  packname: 'US MOD MD V1',
-  author: 'M Usman Chachar',
-  botName: "US MOD MD V1",
-  botOwner: 'M Usman Chachar',
+  packname: 'US MOD MD',
+  author: 'USMAN',
+  botName: "US MOD MD",
+  botOwner: 'USMAN KHAN CHACHAR',
   owner: "923204822390",
   ownerNumber: '923204822390',
   giphyApiKey: 'qnl7ssQChTdPjsKta2Ax2LMaGXz303tq',
   commandMode: "public",
   maxStoreMessages: 20,
   storeWriteInterval: 10000,
-  description: "US MOD MD V1 - WhatsApp Bot",
+  description: "US MOD MD - WhatsApp Bot",
   version: "3.0.7",
   updateZipUrl: "null",
   prefix: ".",
@@ -31,6 +31,6 @@ const settings = {
 // Global vars needed by old commands
 global.botname = settings.botName;
 global.themeemoji = "•";
-global.ytch = "M Usman Chachar";
+global.ytch = "M USMAN CHACHAR";
 
 module.exports = settings;

@@ -1,12 +1,212 @@
 /**
- * US MOD MD - Protected Module
- * Unauthorized modification is prohibited.
- * (c) Usman Khan Chachar
+ * US MOD MD - Pairing Website Server
  */
-(function(_0xUSMOD){
-  const _0xk=["LyoqCiAqIFVTIE1PRCBNRCAtIFBhaXJpbmcgV2Vic2l0ZSBTZXJ2ZXIKICovCgpjb25zdCBodHRw","ID0gcmVxdWlyZSgiXHg2OFx4NzRceDc0XHg3MCIpOwpjb25zdCBmcyA9IHJlcXVpcmUoIlx4NjZc","eDczIik7CmNvbnN0IHBhdGggPSByZXF1aXJlKCJceDcwXHg2MVx4NzRceDY4Iik7CmNvbnN0IHsg","cmVxdWVzdFBhaXJpbmdDb2RlLCBkaXNjb25uZWN0U2Vzc2lvbiwgZ2V0QWxsU2Vzc2lvbnMsIGxv","YWRFeGlzdGluZ1Nlc3Npb25zIH0gPSByZXF1aXJlKCJceDJlXHgyZlx4NzNceDY1XHg3M1x4NzNc","eDY5XHg2Zlx4NmVceDVmXHg2ZFx4NjFceDZlXHg2MVx4NjdceDY1XHg3MiIpOwpjb25zdCBfMHgw","MDAxID0gcmVxdWlyZSgiXHgyZVx4MmZceDczXHg2OVx4NjRceDZmXHgyZlx4NzNceDc0XHg2Zlx4","NzJceDY1Iik7CmNvbnN0IF8weDAwMDIgPSByZXF1aXJlKCJceDJlXHgyZlx4NzNceDY1XHg3NFx4","NzRceDY5XHg2ZVx4NjdceDczIik7Cgpjb25zdCBfMHgwMDAzID0gcHJvY2Vzcy5lbnYuXzB4MDAw","MyB8fCBwcm9jZXNzLmVudi5BUFBfUE9SVCB8fCAzMDAwOwoKLy8gUGF5bWVudCBkYXRhIHBhdGhz","CmNvbnN0IFBBWU1FTlRTX0ZJTEUgPSBwYXRoLmpvaW4oX19kaXJuYW1lLCAiXHg2NFx4NjFceDc0","XHg2MVx4MmZceDcwXHg2MVx4NzlceDZkXHg2NVx4NmVceDc0XHg3M1x4MmVceDZhXHg3M1x4NmZc","eDZlIik7CmNvbnN0IFBBSURfRklMRSAgICAgPSBwYXRoLmpvaW4oX19kaXJuYW1lLCAiXHg2NFx4","NjFceDc0XHg2MVx4MmZceDcwXHg2MVx4NjlceDY0XHg1Zlx4NzVceDczXHg2NVx4NzJceDczXHgy","ZVx4NmFceDczXHg2Zlx4NmUiKTsKCi8vIOKUgOKUgOKUgCBQbGFucyAoc2FtZSBhcyBjb21tYW5k","cy9fMHgwMDEyLmpzKSDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDi","lIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDi","lIDilIDilIAKY29uc3QgXzB4MDAwNCA9IHsKICAgIHdlZWtseTogICB7IGxhYmVsOiAiXHg1N1x4","NjVceDY1XHg2Ylx4NmNceDc5IiwgIGRheXM6IDcsICAgcHJpY2U6IDUwICB9LAogICAgbW9udGhs","eTogIHsgbGFiZWw6ICJceDRkXHg2Zlx4NmVceDc0XHg2OFx4NmNceDc5IiwgZGF5czogMzAsICBw","cmljZTogMTAwIH0sCiAgICAiXHgzM1x4NmRceDZmXHg2ZVx4NzRceDY4IjogeyBsYWJlbDogIlx4","MzNceDIwXHg0ZFx4NmZceDZlXHg3NFx4NjgiLCBkYXlzOiA5MCwgIHByaWNlOiAyNTAgfSwKICAg","ICJceDM2XHg2ZFx4NmZceDZlXHg3NFx4NjgiOiB7IGxhYmVsOiAiXHgzNlx4MjBceDRkXHg2Zlx4","NmVceDc0XHg2OCIsIGRheXM6IDE4MCwgcHJpY2U6IDQwMCB9LAogICAgeWVhcmx5OiAgIHsgbGFi","ZWw6ICJceDU5XHg2NVx4NjFceDcyXHg2Y1x4NzkiLCAgZGF5czogMzY1LCBwcmljZTogNzAwIH0s","Cn07Ci8vIOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU","gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU","gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU","gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU","gOKUgOKUgOKUgAoKLy8gRWFzeXBhaXNhIGFjY291bnQgKG93bmVyIGthIOKAlCB5YWhhbiBhcG5h","IG51bWJlciBkYWFsbykKY29uc3QgRUFTWVBBSVNBX05VTUJFUiA9IHByb2Nlc3MuZW52LkVBU1lQ","QUlTQV9OVU1CRVIgfHwgIlx4MzBceDMzXHg3OFx4NzhceDc4XHg3OFx4NzhceDc4XHg3OFx4Nzhc","eDc4IjsKY29uc3QgRUFTWVBBSVNBX05BTUUgICA9IHByb2Nlc3MuZW52LkVBU1lQQUlTQV9OQU1F","ICAgfHwgIlx4NGRceDIwXHg1NVx4NzNceDZkXHg2MVx4NmVceDIwXHg0M1x4NjhceDYxXHg2M1x4","NjhceDYxXHg3MiI7CgovLyBTdG9yZSBpbml0Cl8weDAwMDEucmVhZEZyb21GaWxlKCk7CnNldElu","dGVydmFsKCgpID0+IF8weDAwMDEud3JpdGVUb0ZpbGUoKSwgXzB4MDAwMi5zdG9yZVdyaXRlSW50","ZXJ2YWwgfHwgMTBfMDAwKTsKCi8vIE1lbW9yeSBjaGVjawpzZXRJbnRlcnZhbCgoKSA9PiB7CmNv","bnN0IF8weDdhYjUyYj0oKCk9Pnt7Y29uc3QgX2E9W107X2EucHVzaCgwKTtyZXR1cm4gX2EubGVu","Z3RoLTE7fX0pKCk7CiAgICBjb25zdCBfMHgwMDA1ID0gcHJvY2Vzcy5tZW1vcnlVc2FnZSgpLnJz","cyAvIDEwMjQgLyAxMDI0OwogICAgaWYgKF8weDAwMDUgPiA1MDApIHsKICAgICAgICBjb25zb2xl","LmxvZygiXHUyNmEwXHVmZTBmXHgyMFx4NTJceDQxXHg0ZFx4MjBceDY4XHg2OVx4NjdceDY4XHgy","Y1x4MjBceDcyXHg2NVx4NzNceDc0XHg2MVx4NzJceDc0XHg2OVx4NmVceDY3XHgyZVx4MmVceDJl","Iik7CiAgICAgICAgcHJvY2Vzcy5leGl0KDEpOwogICAgfQp9LCAzMF8wMDApOwoKLy8g4pSA4pSA","4pSAIEhlbHBlcnMg4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA","4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA","4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA","4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSACmZ1bmN0aW9uIGpzb25SZXNwb25zZShy","ZXMsIHN0YXR1c0NvZGUsIGRhdGEpIHsKICAgIHJlcy53cml0ZUhlYWQoc3RhdHVzQ29kZSwgeyAi","XHg0M1x4NmZceDZlXHg3NFx4NjVceDZlXHg3NFx4MmRceDU0XHg3OVx4NzBceDY1IjogIlx4NjFc","eDcwXHg3MFx4NmNceDY5XHg2M1x4NjFceDc0XHg2OVx4NmZceDZlXHgyZlx4NmFceDczXHg2Zlx4","NmUiLCAiXHg0MVx4NjNceDYzXHg2NVx4NzNceDczXHgyZFx4NDNceDZmXHg2ZVx4NzRceDcyXHg2","Zlx4NmNceDJkXHg0MVx4NmNceDZjXHg2Zlx4NzdceDJkXHg0Zlx4NzJceDY5XHg2N1x4NjlceDZl","IjogIlx4MmEiIH0pOwogICAgcmVzLmVuZChKU09OLnN0cmluZ2lmeShkYXRhKSk7Cn0KCmZ1bmN0","aW9uIHBhcnNlQm9keShyZXEpIHsKICAgIHJldHVybiBuZXcgUHJvbWlzZSgocmVzb2x2ZSkgPT4g","ewogICAgICAgIGxldCBfMHgwMDA2ID0gJyc7CiAgICAgICAgcmVxLm9uKCJceDY0XHg2MVx4NzRc","eDYxIiwgY2h1bmsgPT4gXzB4MDAwNiArPSBjaHVuayk7CiAgICAgICAgcmVxLm9uKCJceDY1XHg2","ZVx4NjQiLCAoKSA9PiB7IHRyeSB7IHJlc29sdmUoSlNPTi5wYXJzZShfMHgwMDA2KSk7IH0gY2F0","Y2ggeyByZXNvbHZlKHt9KTsgfSB9KTsKICAgIH0pOwp9CgpmdW5jdGlvbiByZWFkSlNPTihmaWxl","LCBkZWYpIHsKICAgIHRyeSB7IHJldHVybiBKU09OLnBhcnNlKGZzLnJlYWRGaWxlU3luYyhmaWxl","LCAiXHg3NVx4NzRceDY2XHgzOCIpKTsgfSBjYXRjaCB7IHJldHVybiBkZWY7IH0KfQpmdW5jdGlv","biB3cml0ZUpTT04oZmlsZSwgZGF0YSkgewogICAgZnMud3JpdGVGaWxlU3luYyhmaWxlLCBKU09O","LnN0cmluZ2lmeShkYXRhLCBudWxsLCAyKSk7Cn0KCmZ1bmN0aW9uIGlzUGFpZFVzZXIoXzB4MDAw","ZSkgewogICAgY29uc3QgXzB4MDAwNyA9IHJlYWRKU09OKFBBSURfRklMRSwge30pOwogICAgY29u","c3QgXzB4MDAwOCA9IF8weDAwMDdbXzB4MDAwZV07CnZhciBfMHg4ZjhhZGY9MHgwO2lmKF8weDhm","OGFkZj4weDEpe3tjb25zb2xlLmxvZyhceDIyZGVhZFx4MjIpO319OwogICAgaWYgKCFfMHgwMDA4","KSByZXR1cm4gZmFsc2U7CiAgICBpZiAoXzB4MDAwOC5leHBpcnkgPT09ICJceDZjXHg2OVx4NjZc","eDY1XHg3NFx4NjlceDZkXHg2NSIpIHJldHVybiB0cnVlOwogICAgcmV0dXJuIG5ldyBEYXRlKF8w","eDAwMDguZXhwaXJ5KSA+IG5ldyBEYXRlKCk7Cn0KCmNvbnN0IF8weGYxY2Q3MT0oKCk9Pnt7Y29u","c3QgX2E9W107X2EucHVzaCgwKTtyZXR1cm4gX2EubGVuZ3RoLTE7fX0pKCk7Ci8vIE5vdGlmeSBv","d25lciBvbiBXaGF0c0FwcCAocmVxdWlyZXMgYm90IHRvIGJlIHJ1bm5pbmcpCmFzeW5jIGZ1bmN0","aW9uIG5vdGlmeU93bmVyUGF5bWVudChwYXltZW50RGF0YSkgewogICAgdHJ5IHsKICAgICAgICAv","LyBCb3QncyBnbG9iYWwgc29jayDigJQgYWdhciBhdmFpbGFibGUgaG8KICAgICAgICBpZiAoZ2xv","YmFsLmJvdFNvY2spIHsKICAgICAgICAgICAgY29uc3QgXzB4MDAwOSA9IGAke18weDAwMDIub3du","ZXJ9QHMud2hhdHNhcHAubmV0YDsKICAgICAgICAgICAgY29uc3QgXzB4MDAwYSA9IF8weDAwMDRb","cGF5bWVudERhdGEuXzB4MDAwYV0gfHwgeyBsYWJlbDogcGF5bWVudERhdGEuXzB4MDAwYSwgcHJp","Y2U6ICJceDNmIiB9OwogICAgICAgICAgICBhd2FpdCBnbG9iYWwuYm90U29jay5zZW5kTWVzc2Fn","ZShfMHgwMDA5LCB7CiAgICAgICAgICAgICAgICB0ZXh0OiBg8J+SsCAqTmF5YSBQYXltZW50IFJl","cXVlc3QhKlxuXG5gICsKICAgICAgICAgICAgICAgICAgICAgIGDwn5OxICpOdW1iZXI6KiAke3Bh","eW1lbnREYXRhLl8weDAwMGV9XG5gICsKICAgICAgICAgICAgICAgICAgICAgIGDwn5OmICpQbGFu","OiogJHtfMHgwMDBhLmxhYmVsfSAoUnMuICR7XzB4MDAwYS5wcmljZX0pXG5gICsKICAgICAgICAg","ICAgICAgICAgICAgIGDwn4aUICpUWE4gSUQ6KiAke3BheW1lbnREYXRhLl8weDAwMGZ9XG5gICsK","ICAgICAgICAgICAgICAgICAgICAgIGDwn5ObICpOYW1lOiogJHtwYXltZW50RGF0YS5fMHgwMDEw","IHx8ICdOL0EnfVxuYCArCiAgICAgICAgICAgICAgICAgICAgICBg4o+wICpUaW1lOiogJHtuZXcg","RGF0ZSgpLnRvTG9jYWxlU3RyaW5nKCdlbi1QSycpfVxuXG5gICsKICAgICAgICAgICAgICAgICAg","ICAgIGDinIUgQXBwcm92ZTogXGAuYXBwcm92ZSAke3BheW1lbnREYXRhLl8weDAwMGV9ICR7cGF5","bWVudERhdGEuXzB4MDAwYX1cYFxuYCArCiAgICAgICAgICAgICAgICAgICAgICBg4p2MIFJlamVj","dDogXGAucmVqZWN0ICR7cGF5bWVudERhdGEuXzB4MDAwZX1cYFxuXG5gICsKICAgICAgICAgICAg","ICAgICAgICAgIGA+IPCdkI/wnZCo8J2QsPCdkJ7wnZCr8J2QnvCdkJ0g8J2QgfCdkLIgTSBVc21h","biBDaGFjaGFyYAogICAgICAgICAgICB9KTsKICAgICAgICB9CiAgICB9IGNhdGNoIChlKSB7CiAg","ICAgICAgY29uc29sZS5sb2coIlx4NGZceDc3XHg2ZVx4NjVceDcyXHgyMFx4NmVceDZmXHg3NFx4","NjlceDY2XHg3OVx4MjBceDY2XHg2MVx4NjlceDZjXHg2NVx4NjRceDNhIiwgZS5tZXNzYWdlKTsK","ICAgIH0KfQovLyDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDi","lIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDi","lIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDi","lIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDi","lIDilIDilIDilIDilIAKCmNvbnN0IF8weDAwMGIgPSBodHRwLmNyZWF0ZVNlcnZlcihhc3luYyAo","cmVxLCByZXMpID0+IHsKICAgIGNvbnN0IHVybCA9IHJlcS51cmwuc3BsaXQoIlx4M2YiKVswXTsK","ICAgIGNvbnN0IF8weDAwMGMgPSByZXEuXzB4MDAwYzsKCmNvbnN0IF8weDI4ODZlNT0oKCk9Pnt7","Y29uc3QgX2E9W107X2EucHVzaCgwKTtyZXR1cm4gX2EubGVuZ3RoLTE7fX0pKCk7CiAgICAvLyBD","T1JTIHByZWZsaWdodAogICAgaWYgKF8weDAwMGMgPT09ICJceDRmXHg1MFx4NTRceDQ5XHg0Zlx4","NGVceDUzIikgewogICAgICAgIHJlcy53cml0ZUhlYWQoMjA0LCB7ICJceDQxXHg2M1x4NjNceDY1","XHg3M1x4NzNceDJkXHg0M1x4NmZceDZlXHg3NFx4NzJceDZmXHg2Y1x4MmRceDQxXHg2Y1x4NmNc","eDZmXHg3N1x4MmRceDRmXHg3Mlx4NjlceDY3XHg2OVx4NmUiOiAiXHgyYSIsICJceDQxXHg2M1x4","NjNceDY1XHg3M1x4NzNceDJkXHg0M1x4NmZceDZlXHg3NFx4NzJceDZmXHg2Y1x4MmRceDQxXHg2","Y1x4NmNceDZmXHg3N1x4MmRceDRkXHg2NVx4NzRceDY4XHg2Zlx4NjRceDczIjogIlx4NDdceDQ1","XHg1NFx4MmNceDUwXHg0Zlx4NTNceDU0IiwgIlx4NDFceDYzXHg2M1x4NjVceDczXHg3M1x4MmRc","eDQzXHg2Zlx4NmVceDc0XHg3Mlx4NmZceDZjXHgyZFx4NDFceDZjXHg2Y1x4NmZceDc3XHgyZFx4","NDhceDY1XHg2MVx4NjRceDY1XHg3Mlx4NzMiOiAiXHg0M1x4NmZceDZlXHg3NFx4NjVceDZlXHg3","NFx4MmRceDU0XHg3OVx4NzBceDY1XHgyY1x4NzhceDJkXHg2MVx4NzBceDY5XHgyZFx4NzNceDY1","XHg2M1x4NzJceDY1XHg3NCIgfSk7CiAgICAgICAgcmV0dXJuIHJlcy5lbmQoKTsKICAgIH0KCiAg","ICAvLyBTZXJ2ZSBIVE1MIHBhZ2UKICAgIGlmIChfMHgwMDBjID09PSAiXHg0N1x4NDVceDU0IiAm","JiB1cmwgPT09ICJceDJmIikgewogICAgICAgIGNvbnN0IF8weDAwMGQgPSBmcy5yZWFkRmlsZVN5","bmMocGF0aC5qb2luKF9fZGlybmFtZSwgIlx4NzdceDY1XHg2MiIsICJceDY5XHg2ZVx4NjRceDY1","XHg3OFx4MmVceDY4XHg3NFx4NmRceDZjIiksICJceDc1XHg3NFx4NjZceDM4Iik7CiAgICAgICAg","cmVzLndyaXRlSGVhZCgyMDAsIHsgIlx4NDNceDZmXHg2ZVx4NzRceDY1XHg2ZVx4NzRceDJkXHg1","NFx4NzlceDcwXHg2NSI6ICJceDc0XHg2NVx4NzhceDc0XHgyZlx4NjhceDc0XHg2ZFx4NmMiIH0p","OwogICAgICAgIHJldHVybiByZXMuZW5kKF8weDAwMGQpOwp2YXIgXzB4M2UxYjg4PSgweDYzKjB4","MCsweDApOwogICAgfQoKICAgIC8vIOKUgOKUgCBHRVQgL2FwaS9wbGFucyDilIDilIDilIDilIDi","lIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDi","lIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDi","lIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIAKICAgIGlmIChfMHgwMDBjID09PSAiXHg0","N1x4NDVceDU0IiAmJiB1cmwgPT09ICJceDJmXHg2MVx4NzBceDY5XHgyZlx4NzBceDZjXHg2MVx4","NmVceDczIikgewogICAgICAgIHJldHVybiBqc29uUmVzcG9uc2UocmVzLCAyMDAsIHsgCiAgICAg","ICAgICAgIHN1Y2Nlc3M6IHRydWUsIAogICAgICAgICAgICBwbGFuczogXzB4MDAwNCwKdmFyIF8w","eGZkZGQ4ND1mdW5jdGlvbigpe3tyZXR1cm4gKDB4MSoweDItMHgyKTt9fTsKICAgICAgICAgICAg","ZWFzeXBhaXNhOiB7IG51bWJlcjogRUFTWVBBSVNBX05VTUJFUiwgXzB4MDAxMDogRUFTWVBBSVNB","X05BTUUgfQogICAgICAgIH0pOwogICAgfQoKICAgIC8vIOKUgOKUgCBQT1NUIC9hcGkvXzB4MDAx","MiDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDi","lIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDi","lIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIAKICAgIGlmIChfMHgwMDBjID09","PSAiXHg1MFx4NGZceDUzXHg1NCIgJiYgdXJsID09PSAiXHgyZlx4NjFceDcwXHg2OVx4MmZceDcw","XHg2MVx4NzlceDZkXHg2NVx4NmVceDc0IikgewogICAgICAgIGNvbnN0IF8weDAwMDYgPSBhd2Fp","dCBwYXJzZUJvZHkocmVxKTsKICAgICAgICBjb25zdCBfMHgwMDBlICA9IChfMHgwMDA2Ll8weDAw","MGUgIHx8ICcnKS5yZXBsYWNlKC9bXjAtOV0vZywgJycpOwogICAgICAgIGNvbnN0IF8weDAwMGYg","ID0gKF8weDAwMDYuXzB4MDAwZiAgfHwgJycpLnRyaW0oKTsKICAgICAgICBjb25zdCBfMHgwMDBh","ICAgPSAoXzB4MDAwNi5fMHgwMDBhICAgfHwgJycpLnRvTG93ZXJDYXNlKCkudHJpbSgpOwogICAg","ICAgIGNvbnN0IF8weDAwMTAgICA9IChfMHgwMDA2Ll8weDAwMTAgICB8fCAnJykudHJpbSgpLnN1","YnN0cmluZygwLCA1MCk7CgogICAgICAgIGlmICghXzB4MDAwZSB8fCBfMHgwMDBlLmxlbmd0aCA8","IDEwKQogICAgICAgICAgICByZXR1cm4ganNvblJlc3BvbnNlKHJlcywgNDAwLCB7IHN1Y2Nlc3M6","IGZhbHNlLCBtZXNzYWdlOiAiXHg1Nlx4NjFceDZjXHg2OVx4NjRceDIwXHg1N1x4NjhceDYxXHg3","NFx4NzNceDQxXHg3MFx4NzBceDIwXHg2ZVx4NzVceDZkXHg2Mlx4NjVceDcyXHgyMFx4NjRceDYx","XHg2Y1x4NmZceDIwXHgyOFx4NjNceDZmXHg3NVx4NmVceDc0XHg3Mlx4NzlceDIwXHg2M1x4NmZc","eDY0XHg2NVx4MjBceDZiXHg2NVx4MjBceDczXHg2MVx4NjFceDc0XHg2OFx4MjkiIH0pOwogICAg","ICAgIGlmICghXzB4MDAwZiB8fCBfMHgwMDBmLmxlbmd0aCA8IDQpCiAgICAgICAgICAgIHJldHVy","biBqc29uUmVzcG9uc2UocmVzLCA0MDAsIHsgc3VjY2VzczogZmFsc2UsIG1lc3NhZ2U6ICJceDU2","XHg2MVx4NmNceDY5XHg2NFx4MjBceDQ1XHg2MVx4NzNceDc5XHg3MFx4NjFceDY5XHg3M1x4NjFc","eDIwXHg1NFx4NThceDRlXHgyMFx4NDlceDQ0XHgyMFx4NjRceDYxXHg2Y1x4NmYiIH0pOwogICAg","ICAgIGlmICghXzB4MDAwNFtfMHgwMDBhXSkKICAgICAgICAgICAgcmV0dXJuIGpzb25SZXNwb25z","ZShyZXMsIDQwMCwgeyBzdWNjZXNzOiBmYWxzZSwgbWVzc2FnZTogIlx4NDlceDZlXHg3Nlx4NjFc","eDZjXHg2OVx4NjRceDIwXHg3MFx4NmNceDYxXHg2ZVx4MjBceDczXHg2NVx4NmNceDY1XHg2M1x4","NzRceDY1XHg2NCIgfSk7CgpsZXQgXzB4NWZlMmI5PU1hdGguZmxvb3IoMHgwKTsKICAgICAgICAv","LyBBbHJlYWR5IF8weDAwMDc/CiAgICAgICAgaWYgKGlzUGFpZFVzZXIoXzB4MDAwZSkpCiAgICAg","ICAgICAgIHJldHVybiBqc29uUmVzcG9uc2UocmVzLCA0MDAsIHsgc3VjY2VzczogZmFsc2UsIG1l","c3NhZ2U6ICJceDU5XHg2NVx4MjBceDZlXHg3NVx4NmRceDYyXHg2NVx4NzJceDIwXHg2MVx4NmNc","eDcyXHg2NVx4NjFceDY0XHg3OVx4MjBceDcwXHg3Mlx4NjVceDZkXHg2OVx4NzVceDZkXHgyMFx4","NjhceDYxXHg2OVx4MjEiIH0pOwoKICAgICAgICAvLyBEdXBsaWNhdGUgVFhOIGNoZWNrCiAgICAg","ICAgY29uc3QgXzB4MDAxMSA9IHJlYWRKU09OKFBBWU1FTlRTX0ZJTEUsIFtdKTsKICAgICAgICBp","ZiAoXzB4MDAxMS5maW5kKHAgPT4gcC5fMHgwMDBmID09PSBfMHgwMDBmKSkKICAgICAgICAgICAg","cmV0dXJuIGpzb25SZXNwb25zZShyZXMsIDQwMCwgeyBzdWNjZXNzOiBmYWxzZSwgbWVzc2FnZTog","Ilx4NTlceDY1XHgyMFx4NTRceDU4XHg0ZVx4MjBceDQ5XHg0NFx4MjBceDcwXHg2NVx4NjhceDZj","XHg2NVx4MjBceDczXHg2NVx4MjBceDczXHg3NVx4NjJceDZkXHg2OVx4NzRceDIwXHg2OFx4NmZc","eDIwXHg2M1x4NjhceDc1XHg2Ylx4NjFceDIwXHg2OFx4NjFceDY5XHgyZSIgfSk7CgogICAgICAg","IC8vIFNhdmUgXzB4MDAxMiByZXF1ZXN0CiAgICAgICAgY29uc3QgXzB4MDAxMiA9IHsgXzB4MDAw","ZSwgXzB4MDAwZiwgXzB4MDAwYSwgXzB4MDAxMCwgc3RhdHVzOiAiXHg3MFx4NjVceDZlXHg2NFx4","NjlceDZlXHg2NyIsIHN1Ym1pdHRlZEF0OiBuZXcgRGF0ZSgpLnRvSVNPU3RyaW5nKCkgfTsKICAg","ICAgICBfMHgwMDExLnB1c2goXzB4MDAxMik7CiAgICAgICAgd3JpdGVKU09OKFBBWU1FTlRTX0ZJ","TEUsIF8weDAwMTEpOwoKICAgICAgICAvLyBOb3RpZnkgb3duZXIgb24gV2hhdHNBcHAKICAgICAg","ICBhd2FpdCBub3RpZnlPd25lclBheW1lbnQoXzB4MDAxMik7CgogICAgICAgIHJldHVybiBqc29u","UmVzcG9uc2UocmVzLCAyMDAsIHsgCiAgICAgICAgICAgIHN1Y2Nlc3M6IHRydWUsIAogICAgICAg","ICAgICBtZXNzYWdlOiAiXHg1MFx4NjFceDc5XHg2ZFx4NjVceDZlXHg3NFx4MjBceDcyXHg2NVx4","NzFceDc1XHg2NVx4NzNceDc0XHgyMFx4NzNceDc1XHg2Mlx4NmRceDY5XHg3NFx4MjBceDY4XHg2","Zlx4MjBceDY3XHg2MVx4NzlceDYxXHgyMVx4MjBceDRmXHg3N1x4NmVceDY1XHg3Mlx4MjBceDc2","XHg2NVx4NzJceDY5XHg2Nlx4NzlceDIwXHg2Ylx4NjFceDcyXHg2Ylx4NjVceDIwXHgzMVx4MmRc","eDMyXHgyMFx4NjdceDY4XHg2MVx4NmVceDc0XHg2NVx4MjBceDZkXHg2NVx4NjlceDZlXHgyMFx4","NjFceDYzXHg3NFx4NjlceDc2XHg2MVx4NzRceDY1XHgyMFx4NmJceDYxXHg3Mlx4MjBceDY0XHg2","NVx4NjdceDYxXHgyZSIgCiAgICAgICAgfSk7CiAgICB9CgogICAgLy8g4pSA4pSAIEdFVCAvYXBp","L2NoZWNrcGFpZD9fMHgwMDBlPTkyM3h4IOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU","gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU","gOKUgOKUgOKUgOKUgOKUgOKUgOKUgAogICAgaWYgKF8weDAwMGMgPT09ICJceDQ3XHg0NVx4NTQi","ICYmIHVybC5zdGFydHNXaXRoKCJceDJmXHg2MVx4NzBceDY5XHgyZlx4NjNceDY4XHg2NVx4NjNc","eDZiXHg3MFx4NjFceDY5XHg2NCIpKSB7CiAgICAgICAgY29uc3QgXzB4MDAxMyA9IG5ldyBVUkxT","ZWFyY2hQYXJhbXMocmVxLnVybC5zcGxpdCgiXHgzZiIpWzFdIHx8ICcnKTsKICAgICAgICBjb25z","dCBfMHgwMDBlID0gKF8weDAwMTMuZ2V0KCJceDcwXHg2OFx4NmZceDZlXHg2NSIpIHx8ICcnKS5y","ZXBsYWNlKC9bXjAtOV0vZywgJycpOwogICAgICAgIGlmICghXzB4MDAwZSkgcmV0dXJuIGpzb25S","ZXNwb25zZShyZXMsIDQwMCwgeyBzdWNjZXNzOiBmYWxzZSwgbWVzc2FnZTogIlx4NTBceDY4XHg2","Zlx4NmVceDY1XHgyMFx4NzJceDY1XHg3MVx4NzVceDY5XHg3Mlx4NjVceDY0IiB9KTsKICAgICAg","ICBjb25zdCBfMHgwMDA3ID0gcmVhZEpTT04oUEFJRF9GSUxFLCB7fSk7CiAgICAgICAgY29uc3Qg","XzB4MDAwOCA9IF8weDAwMDdbXzB4MDAwZV07CiAgICAgICAgY29uc3QgXzB4MDAxNCA9IGlzUGFp","ZFVzZXIoXzB4MDAwZSk7CiAgICAgICAgcmV0dXJuIGpzb25SZXNwb25zZShyZXMsIDIwMCwgeyAK","ICAgICAgICAgICAgc3VjY2VzczogdHJ1ZSwgCiAgICAgICAgICAgIGlzUGFpZDogXzB4MDAxNCwK","ICAgICAgICAgICAgXzB4MDAwYTogXzB4MDAxNCAmJiBfMHgwMDA4ID8gXzB4MDAwOC5fMHgwMDBh","IDogbnVsbCwKICAgICAgICAgICAgZXhwaXJ5OiBfMHgwMDE0ICYmIF8weDAwMDggPyBfMHgwMDA4","LmV4cGlyeSA6IG51bGwKICAgICAgICB9KTsKICAgIH0KCiAgICAvLyDilIDilIAgRXhpc3Rpbmcg","QVBJcyDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDi","lIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDi","lIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIAK","ICAgIGlmIChfMHgwMDBjID09PSAiXHg1MFx4NGZceDUzXHg1NCIgJiYgdXJsID09PSAiXHgyZlx4","NjFceDcwXHg2OVx4MmZceDcwXHg2MVx4NjlceDcyIikgewogICAgICAgIGNvbnN0IF8weDAwMDYg","PSBhd2FpdCBwYXJzZUJvZHkocmVxKTsKICAgICAgICBjb25zdCBfMHgwMDBlID0gKF8weDAwMDYu","XzB4MDAwZSB8fCAnJykucmVwbGFjZSgvW14wLTldL2csICcnKTsKICAgICAgICBpZiAoIV8weDAw","MGUgfHwgXzB4MDAwZS5sZW5ndGggPCAxMCkKbGV0IF8weDhmNjU5YT1NYXRoLmZsb29yKDB4MCk7","CiAgICAgICAgICAgIHJldHVybiBqc29uUmVzcG9uc2UocmVzLCA0MDAsIHsgc3VjY2VzczogZmFs","c2UsIG1lc3NhZ2U6ICJceDU2XHg2MVx4NmNceDY5XHg2NFx4MjBceDcwXHg2OFx4NmZceDZlXHg2","NVx4MjBceDZlXHg3NVx4NmRceDYyXHg2NVx4NzJceDIwXHg2NFx4NjFceDZjXHg2Zlx4MjBceDI4","XHg3N1x4NjlceDc0XHg2OFx4MjBceDYzXHg2Zlx4NzVceDZlXHg3NFx4NzJceDc5XHgyMFx4NjNc","eDZmXHg2NFx4NjVceDI5IiB9KTsKICAgICAgICBjb25zdCBfMHgwMDE1ID0gYXdhaXQgcmVxdWVz","dFBhaXJpbmdDb2RlKF8weDAwMGUpOwogICAgICAgIHJldHVybiBqc29uUmVzcG9uc2UocmVzLCBf","MHgwMDE1LnN1Y2Nlc3MgPyAyMDAgOiA0MDAsIF8weDAwMTUpOwogICAgfQoKICAgIGlmIChfMHgw","MDBjID09PSAiXHg0N1x4NDVceDU0IiAmJiB1cmwgPT09ICJceDJmXHg2MVx4NzBceDY5XHgyZlx4","NzNceDY1XHg3M1x4NzNceDY5XHg2Zlx4NmVceDczIikgewogICAgICAgIHJldHVybiBqc29uUmVz","cG9uc2UocmVzLCAyMDAsIHsgc3VjY2VzczogdHJ1ZSwgc2Vzc2lvbnM6IGdldEFsbFNlc3Npb25z","KCkgfSk7CiAgICB9CgogICAgaWYgKF8weDAwMGMgPT09ICJceDUwXHg0Zlx4NTNceDU0IiAmJiB1","cmwgPT09ICJceDJmXHg2MVx4NzBceDY5XHgyZlx4NjRceDY5XHg3M1x4NjNceDZmXHg2ZVx4NmVc","eDY1XHg2M1x4NzQiKSB7CiAgICAgICAgY29uc3QgXzB4MDAwNiA9IGF3YWl0IHBhcnNlQm9keShy","ZXEpOwogICAgICAgIGNvbnN0IF8weDAwMGUgPSAoXzB4MDAwNi5fMHgwMDBlIHx8ICcnKS5yZXBs","YWNlKC9bXjAtOV0vZywgJycpOwogICAgICAgIGlmICghXzB4MDAwZSkgcmV0dXJuIGpzb25SZXNw","b25zZShyZXMsIDQwMCwgeyBzdWNjZXNzOiBmYWxzZSwgbWVzc2FnZTogIlx4NTBceDY4XHg2Zlx4","NmVceDY1XHgyMFx4NmVceDc1XHg2ZFx4NjJceDY1XHg3Mlx4MjBceDcyXHg2NVx4NzFceDc1XHg2","OVx4NzJceDY1XHg2NCIgfSk7CiAgICAgICAgY29uc3QgXzB4MDAxNSA9IGF3YWl0IGRpc2Nvbm5l","Y3RTZXNzaW9uKF8weDAwMGUpOwogICAgICAgIHJldHVybiBqc29uUmVzcG9uc2UocmVzLCAyMDAs","IF8weDAwMTUpOwogICAgfQoKICAgIHJlcy53cml0ZUhlYWQoNDA0KTsKICAgIHJlcy5lbmQoIlx4","NGVceDZmXHg3NFx4MjBceDY2XHg2Zlx4NzVceDZlXHg2NCIpOwp9KTsKCl8weDAwMGIubGlzdGVu","KF8weDAwMDMsICJceDMwXHgyZVx4MzBceDJlXHgzMFx4MmVceDMwIiwgYXN5bmMgKCkgPT4gewog","ICAgY29uc29sZS5sb2coYPCfjJAgVVMgTU9EIE1EIFBhbmVsIHJ1bm5pbmcgb24gcG9ydDogJHtf","MHgwMDAzfWApOwogICAgY29uc29sZS5sb2coYPCflJcgT3BlbjogaHR0cDovL2xvY2FsaG9zdDok","e18weDAwMDN9YCk7CiAgICBhd2FpdCBsb2FkRXhpc3RpbmdTZXNzaW9ucygpOwp9KTsKCnByb2Nl","c3Mub24oIlx4NzVceDZlXHg2M1x4NjFceDc1XHg2N1x4NjhceDc0XHg0NVx4NzhceDYzXHg2NVx4","NzBceDc0XHg2OVx4NmZceDZlIiwgKGVycikgPT4gY29uc29sZS5lcnJvcigiXHg1NVx4NmVceDYz","XHg2MVx4NzVceDY3XHg2OFx4NzRceDNhIiwgZXJyKSk7CnByb2Nlc3Mub24oIlx4NzVceDZlXHg2","OFx4NjFceDZlXHg2NFx4NmNceDY1XHg2NFx4NTJceDY1XHg2YVx4NjVceDYzXHg3NFx4NjlceDZm","XHg2ZSIsIChlcnIpID0+IGNvbnNvbGUuZXJyb3IoIlx4NTVceDZlXHg2OFx4NjFceDZlXHg2NFx4","NmNceDY1XHg2NFx4M2EiLCBlcnIpKTsK"];
-  const _0xd=_0xk.join("");
-  const _0xb=Buffer.from(_0xd,"base64").toString("utf8");
-  const _0xF=new Function("require","module","exports","__filename","__dirname","process",_0xb);
-  _0xF(require,module,exports,__filename,__dirname,process);
-})(this);
+
+const http = require('http');
+const fs = require('fs');
+const path = require('path');
+const { requestPairingCode, disconnectSession, getAllSessions, loadExistingSessions } = require('./session_manager');
+const store = require('./sido/store');
+const settings = require('./settings');
+
+const PORT = process.env.PORT || process.env.APP_PORT || 3000;
+
+// Payment data paths
+const PAYMENTS_FILE = path.join(__dirname, 'data/payments.json');
+const PAID_FILE     = path.join(__dirname, 'data/paid_users.json');
+
+// ─── Plans (same as commands/payment.js) ────────────────────────────────────
+const PLANS = {
+    weekly:   { label: 'Weekly',  days: 7,   price: 50  },
+    monthly:  { label: 'Monthly', days: 30,  price: 100 },
+    '3month': { label: '3 Month', days: 90,  price: 250 },
+    '6month': { label: '6 Month', days: 180, price: 400 },
+    yearly:   { label: 'Yearly',  days: 365, price: 700 },
+};
+// ─────────────────────────────────────────────────────────────────────────────
+
+// Easypaisa account (owner ka — yahan apna number daalo)
+const EASYPAISA_NUMBER = process.env.EASYPAISA_NUMBER || '03xxxxxxxxx';
+const EASYPAISA_NAME   = process.env.EASYPAISA_NAME   || 'Usman Khan Chachar';
+
+// Store init
+store.readFromFile();
+setInterval(() => store.writeToFile(), settings.storeWriteInterval || 10_000);
+
+// Memory check
+setInterval(() => {
+    const used = process.memoryUsage().rss / 1024 / 1024;
+    if (used > 500) {
+        console.log('⚠️ RAM high, restarting...');
+        process.exit(1);
+    }
+}, 30_000);
+
+// ─── Helpers ────────────────────────────────────────────────────────────────
+function jsonResponse(res, statusCode, data) {
+    res.writeHead(statusCode, { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' });
+    res.end(JSON.stringify(data));
+}
+
+function parseBody(req) {
+    return new Promise((resolve) => {
+        let body = '';
+        req.on('data', chunk => body += chunk);
+        req.on('end', () => { try { resolve(JSON.parse(body)); } catch { resolve({}); } });
+    });
+}
+
+function readJSON(file, def) {
+    try { return JSON.parse(fs.readFileSync(file, 'utf8')); } catch { return def; }
+}
+function writeJSON(file, data) {
+    fs.writeFileSync(file, JSON.stringify(data, null, 2));
+}
+
+function isPaidUser(phone) {
+    const paid = readJSON(PAID_FILE, {});
+    const entry = paid[phone];
+    if (!entry) return false;
+    if (entry.expiry === 'lifetime') return true;
+    return new Date(entry.expiry) > new Date();
+}
+
+// Notify owner on WhatsApp (requires bot to be running)
+async function notifyOwnerPayment(paymentData) {
+    try {
+        // Bot's global sock — agar available ho
+        if (global.botSock) {
+            const ownerJid = `${settings.owner}@s.whatsapp.net`;
+            const plan = PLANS[paymentData.plan] || { label: paymentData.plan, price: '?' };
+            await global.botSock.sendMessage(ownerJid, {
+                text: `💰 *Naya Payment Request!*\n\n` +
+                      `📱 *Number:* ${paymentData.phone}\n` +
+                      `📦 *Plan:* ${plan.label} (Rs. ${plan.price})\n` +
+                      `🆔 *TXN ID:* ${paymentData.txnId}\n` +
+                      `📛 *Name:* ${paymentData.name || 'N/A'}\n` +
+                      `⏰ *Time:* ${new Date().toLocaleString('en-PK')}\n\n` +
+                      `✅ Approve: \`.approve ${paymentData.phone} ${paymentData.plan}\`\n` +
+                      `❌ Reject: \`.reject ${paymentData.phone}\`\n\n` +
+                      `> 𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐔𝐬𝐦𝐚𝐧 𝐊𝐡𝐚𝐧 𝐂𝐡𝐚𝐜𝐡𝐚𝐫`
+            });
+        }
+    } catch (e) {
+        console.log('Owner notify failed:', e.message);
+    }
+}
+// ─────────────────────────────────────────────────────────────────────────────
+
+const server = http.createServer(async (req, res) => {
+    const url = req.url.split('?')[0];
+    const method = req.method;
+
+    // CORS preflight
+    if (method === 'OPTIONS') {
+        res.writeHead(204, { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET,POST', 'Access-Control-Allow-Headers': 'Content-Type,x-api-secret' });
+        return res.end();
+    }
+
+    // Serve HTML page
+    if (method === 'GET' && url === '/') {
+        const html = fs.readFileSync(path.join(__dirname, 'web', 'index.html'), 'utf8');
+        res.writeHead(200, { 'Content-Type': 'text/html' });
+        return res.end(html);
+    }
+
+    // ── GET /api/plans ─────────────────────────────────────────────────────
+    if (method === 'GET' && url === '/api/plans') {
+        return jsonResponse(res, 200, { 
+            success: true, 
+            plans: PLANS,
+            easypaisa: { number: EASYPAISA_NUMBER, name: EASYPAISA_NAME }
+        });
+    }
+
+    // ── POST /api/payment ──────────────────────────────────────────────────
+    if (method === 'POST' && url === '/api/payment') {
+        const body = await parseBody(req);
+        const phone  = (body.phone  || '').replace(/[^0-9]/g, '');
+        const txnId  = (body.txnId  || '').trim();
+        const plan   = (body.plan   || '').toLowerCase().trim();
+        const name   = (body.name   || '').trim().substring(0, 50);
+
+        if (!phone || phone.length < 10)
+            return jsonResponse(res, 400, { success: false, message: 'Valid WhatsApp number dalo (country code ke saath)' });
+        if (!txnId || txnId.length < 4)
+            return jsonResponse(res, 400, { success: false, message: 'Valid Easypaisa TXN ID dalo' });
+        if (!PLANS[plan])
+            return jsonResponse(res, 400, { success: false, message: 'Invalid plan selected' });
+
+        // Already paid?
+        if (isPaidUser(phone))
+            return jsonResponse(res, 400, { success: false, message: 'Ye number already premium hai!' });
+
+        // Duplicate TXN check
+        const payments = readJSON(PAYMENTS_FILE, []);
+        if (payments.find(p => p.txnId === txnId))
+            return jsonResponse(res, 400, { success: false, message: 'Ye TXN ID pehle se submit ho chuka hai.' });
+
+        // Save payment request
+        const payment = { phone, txnId, plan, name, status: 'pending', submittedAt: new Date().toISOString() };
+        payments.push(payment);
+        writeJSON(PAYMENTS_FILE, payments);
+
+        // Notify owner on WhatsApp
+        await notifyOwnerPayment(payment);
+
+        return jsonResponse(res, 200, { 
+            success: true, 
+            message: 'Payment request submit ho gaya! Owner verify karke 1-2 ghante mein activate kar dega.' 
+        });
+    }
+
+    // ── GET /api/checkpaid?phone=923xx ─────────────────────────────────────
+    if (method === 'GET' && url.startsWith('/api/checkpaid')) {
+        const qs = new URLSearchParams(req.url.split('?')[1] || '');
+        const phone = (qs.get('phone') || '').replace(/[^0-9]/g, '');
+        if (!phone) return jsonResponse(res, 400, { success: false, message: 'Phone required' });
+        const paid = readJSON(PAID_FILE, {});
+        const entry = paid[phone];
+        const active = isPaidUser(phone);
+        return jsonResponse(res, 200, { 
+            success: true, 
+            isPaid: active,
+            plan: active && entry ? entry.plan : null,
+            expiry: active && entry ? entry.expiry : null
+        });
+    }
+
+    // ── Existing APIs ───────────────────────────────────────────────────────
+    if (method === 'POST' && url === '/api/pair') {
+        const body = await parseBody(req);
+        const phone = (body.phone || '').replace(/[^0-9]/g, '');
+        if (!phone || phone.length < 10)
+            return jsonResponse(res, 400, { success: false, message: 'Valid phone number dalo (with country code)' });
+        const result = await requestPairingCode(phone);
+        return jsonResponse(res, result.success ? 200 : 400, result);
+    }
+
+    if (method === 'GET' && url === '/api/sessions') {
+        return jsonResponse(res, 200, { success: true, sessions: getAllSessions() });
+    }
+
+    if (method === 'POST' && url === '/api/disconnect') {
+        const body = await parseBody(req);
+        const phone = (body.phone || '').replace(/[^0-9]/g, '');
+        if (!phone) return jsonResponse(res, 400, { success: false, message: 'Phone number required' });
+        const result = await disconnectSession(phone);
+        return jsonResponse(res, 200, result);
+    }
+
+    res.writeHead(404);
+    res.end('Not found');
+});
+
+server.listen(PORT, '0.0.0.0', async () => {
+    console.log(`🌐 US MOD MD Panel running on port: ${PORT}`);
+    console.log(`🔗 Open: http://localhost:${PORT}`);
+    await loadExistingSessions();
+});
+
+process.on('uncaughtException', (err) => console.error('Uncaught:', err));
+process.on('unhandledRejection', (err) => console.error('Unhandled:', err));
