@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { fetchBuffer } = require('../lib/myfunc');
+const { fetchBuffer } = require('../../lib/myfunc');
 
 async function imagineCommand(sock, chatId, message) {
     try {
