@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>US MOD MD — Bot Panel</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #050908; --surface: #0d1510; --card: #111a12; --card2: #0f1710;
+    --border: #1a2e1c; --border2: #233325;
+    --green: #1fdd6a; --green2: #17b356; --green-dim: #0d5c2a;
+    --green-glow: rgba(31,221,106,0.12); --green-glow2: rgba(31,221,106,0.06);
+    --yellow: #f0b429; --red: #f04444; --blue: #4a9eff;
+    --text: #e2f0e4; --text2: #a8c4aa; --muted: #4d7352;
+    --font: 'Inter', sans-serif; --mono: 'JetBrains Mono', monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: var(--font); min-height: 100vh; display: flex; flex-direction: column; align-items: center; }
+
+  /* TOP BAR */
+  .topbar { width:100%; padding:13px 18px; display:flex; align-items:center; gap:10px; background:var(--surface); border-bottom:1px solid var(--border); position:sticky; top:0; z-index:100; }
+  .pulse-dot { width:8px; height:8px; background:var(--green); border-radius:50%; box-shadow:0 0 10px var(--green); animation:pulse 2.4s ease-in-out infinite; flex-shrink:0; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.35;transform:scale(0.85)} }
+  .topbar-title { font-size:15px; font-weight:800; color:var(--green); letter-spacing:0.3px; }
+  .topbar-sub { font-size:10px; color:var(--muted); font-family:var(--mono); margin-top:1px; }
+  .topbar-badge { margin-left:auto; font-size:9px; font-family:var(--mono); font-weight:600; color:var(--green); background:var(--green-glow); border:1px solid var(--green-dim); border-radius:20px; padding:3px 8px; letter-spacing:0.5px; text-transform:uppercase; }
+
+  /* HERO */
+  .hero { width:100%; max-width:560px; padding:20px 16px 0; }
+  .profile-card { width:100%; border-radius:20px; overflow:hidden; border:1px solid var(--border2); background:var(--card); position:relative; }
+  .profile-img-wrap { width:100%; height:220px; overflow:hidden; position:relative; }
+  .profile-img-wrap img { width:100%; height:100%; object-fit:cover; object-position:center 15%; display:block; filter:brightness(0.82) saturate(0.9); }
+  .profile-img-wrap::after { content:''; position:absolute; inset:0; background:linear-gradient(180deg,transparent 30%,rgba(5,9,8,0.55) 70%,rgba(5,9,8,0.92) 100%); }
+  .profile-info { padding:14px 18px 18px; display:flex; align-items:center; gap:14px; border-top:1px solid var(--border); }
+  .profile-avatar { width:46px; height:46px; border-radius:50%; object-fit:cover; object-position:center 10%; border:2px solid var(--green); box-shadow:0 0 12px rgba(31,221,106,0.3); flex-shrink:0; }
+  .profile-text { flex:1; }
+  .profile-name { font-size:15px; font-weight:700; color:var(--text); line-height:1.3; }
+  .profile-role { font-size:11px; color:var(--green); font-family:var(--mono); margin-top:2px; }
+  .profile-copy { font-size:10px; color:var(--muted); font-family:var(--mono); text-align:right; line-height:1.6; }
+  .profile-copy b { color:var(--green2); }
+
+  /* MAIN */
+  main { width:100%; max-width:560px; padding:16px 16px 24px; display:flex; flex-direction:column; gap:14px; }
+
+  /* TAB SWITCHER */
+  .tab-bar { display:flex; gap:8px; background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:5px; }
+  .tab-btn { flex:1; padding:10px 8px; border:none; border-radius:10px; font-family:var(--font); font-size:12px; font-weight:700; cursor:pointer; transition:all 0.2s; background:transparent; color:var(--muted); }
+  .tab-btn.active { background:var(--green); color:#040a06; }
+  .tab-btn:hover:not(.active) { color:var(--text2); }
+
+  /* CARDS */
+  .card { background:var(--card); border:1px solid var(--border); border-radius:18px; padding:18px; }
+  .card-header { display:flex; align-items:center; gap:8px; margin-bottom:16px; }
+  .card-icon { width:30px; height:30px; border-radius:9px; background:var(--green-glow); border:1px solid var(--green-dim); display:flex; align-items:center; justify-content:center; font-size:14px; flex-shrink:0; }
+  .card-title { font-size:12px; font-weight:700; color:var(--text2); text-transform:uppercase; letter-spacing:0.8px; }
+  .card-title-right { margin-left:auto; display:flex; gap:6px; }
+
+  /* INPUTS */
+  input[type="tel"], input[type="password"], input[type="text"], select {
+    width:100%; background:var(--surface); border:1px solid var(--border2); border-radius:11px;
+    padding:11px 14px; color:var(--text); font-family:var(--mono); font-size:13px; outline:none;
+    transition:border-color 0.2s, box-shadow 0.2s;
+  }
+  input:focus, select:focus { border-color:var(--green); box-shadow:0 0 0 3px var(--green-glow); }
+  input::placeholder { color:var(--muted); }
+  select { appearance:none; cursor:pointer; }
+  select option { background:var(--card); }
+  .input-gap { display:flex; flex-direction:column; gap:10px; }
+
+  /* BUTTONS */
+  .btn-primary { background:var(--green); color:#040a06; border:none; border-radius:11px; padding:12px 16px; font-family:var(--font); font-size:13px; font-weight:700; cursor:pointer; transition:opacity 0.2s,transform 0.1s; width:100%; letter-spacing:0.2px; }
+  .btn-primary:hover { opacity:0.88; }
+  .btn-primary:active { transform:scale(0.97); }
+  .btn-primary:disabled { opacity:0.3; cursor:not-allowed; }
+  .btn-ghost { background:transparent; border:1px solid var(--border2); color:var(--muted); border-radius:9px; padding:6px 12px; font-size:11px; font-family:var(--font); font-weight:600; cursor:pointer; transition:border-color 0.2s,color 0.2s; }
+  .btn-ghost:hover { border-color:var(--green); color:var(--green); }
+  .btn-danger { background:transparent; border:1px solid rgba(240,68,68,0.25); color:var(--red); border-radius:7px; padding:5px 9px; font-size:10px; font-family:var(--font); font-weight:600; cursor:pointer; }
+  .btn-danger:hover { background:rgba(240,68,68,0.08); }
+
+  .hint { font-size:11px; color:var(--muted); font-family:var(--mono); margin-top:6px; }
+
+  /* ALERTS */
+  .alert { display:none; padding:10px 13px; border-radius:10px; font-size:12px; margin-top:10px; font-family:var(--mono); }
+  .alert.show { display:block; }
+  .alert.error { background:rgba(240,68,68,0.08); border:1px solid rgba(240,68,68,0.25); color:#f9a5a5; }
+  .alert.success { background:var(--green-glow); border:1px solid var(--green-dim); color:var(--green); }
+  .alert.info { background:rgba(240,180,41,0.07); border:1px solid rgba(240,180,41,0.25); color:var(--yellow); }
+
+  /* CODE BOX */
+  .code-box { display:none; margin-top:14px; }
+  .code-box.show { display:block; }
+  .code-inner { background:var(--surface); border:1px solid var(--green-dim); border-radius:14px; padding:18px; text-align:center; }
+  .code-label { font-size:10px; color:var(--muted); margin-bottom:10px; font-family:var(--mono); text-transform:uppercase; letter-spacing:0.8px; }
+  .code-value { font-family:var(--mono); font-size:34px; font-weight:700; color:var(--green); letter-spacing:8px; text-shadow:0 0 24px rgba(31,221,106,0.4); }
+  .code-divider { height:1px; background:var(--border); margin:14px 0; }
+  .code-steps { font-size:11px; color:var(--text2); line-height:2.1; text-align:left; font-family:var(--mono); }
+  .code-steps b { color:var(--green); }
+
+  /* PLANS GRID */
+  .plans-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:14px; }
+  .plan-card { background:var(--surface); border:2px solid var(--border); border-radius:14px; padding:14px 10px; text-align:center; cursor:pointer; transition:all 0.2s; position:relative; }
+  .plan-card:hover { border-color:var(--green-dim); }
+  .plan-card.selected { border-color:var(--green); background:var(--green-glow); }
+  .plan-card.selected::after { content:'✓'; position:absolute; top:7px; right:9px; font-size:11px; color:var(--green); font-weight:700; }
+  .plan-name { font-size:12px; font-weight:700; color:var(--text); margin-bottom:5px; }
+  .plan-price { font-size:20px; font-weight:800; color:var(--green); font-family:var(--mono); }
+  .plan-price span { font-size:11px; color:var(--muted); }
+  .plan-days { font-size:10px; color:var(--muted); font-family:var(--mono); margin-top:4px; }
+  .plan-badge { font-size:9px; background:var(--green-glow); border:1px solid var(--green-dim); color:var(--green); border-radius:20px; padding:2px 7px; display:inline-block; margin-top:5px; }
+
+  /* EASYPAISA INFO BOX */
+  .ep-box { background:var(--surface); border:1px solid var(--border2); border-radius:12px; padding:14px; margin-bottom:14px; }
+  .ep-title { font-size:11px; font-weight:700; color:var(--text2); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:10px; }
+  .ep-row { display:flex; align-items:center; justify-content:space-between; margin-bottom:6px; }
+  .ep-label { font-size:11px; color:var(--muted); font-family:var(--mono); }
+  .ep-value { font-size:13px; font-weight:700; color:var(--green); font-family:var(--mono); }
+  .ep-copy { font-size:10px; color:var(--muted); cursor:pointer; padding:3px 8px; border:1px solid var(--border2); border-radius:6px; transition:all 0.15s; }
+  .ep-copy:hover { border-color:var(--green); color:var(--green); }
+  .ep-amount { font-size:22px; font-weight:800; color:var(--yellow); font-family:var(--mono); text-align:center; padding:10px 0; }
+  .ep-amount span { font-size:12px; color:var(--muted); }
+
+  /* STATUS BADGE */
+  .status-badge { display:inline-flex; align-items:center; gap:5px; font-size:11px; font-family:var(--mono); padding:4px 10px; border-radius:20px; font-weight:600; }
+  .status-badge.free { background:rgba(240,180,41,0.1); color:var(--yellow); border:1px solid rgba(240,180,41,0.25); }
+  .status-badge.paid { background:var(--green-glow); color:var(--green); border:1px solid var(--green-dim); }
+
+  /* LOCK */
+  .lock-wrap { display:flex; flex-direction:column; align-items:center; padding:10px 0 6px; gap:10px; text-align:center; }
+  .lock-emoji { font-size:30px; line-height:1; }
+  .lock-title { font-size:13px; font-weight:700; color:var(--green); text-transform:uppercase; letter-spacing:1px; }
+  .lock-sub { font-size:11px; color:var(--muted); font-family:var(--mono); }
+  .lock-err { font-size:11px; color:#f9a5a5; font-family:var(--mono); display:none; }
+  .lock-err.show { display:block; }
+
+  /* SESSIONS */
+  .sessions-wrap { display:none; }
+  .sessions-wrap.unlocked { display:block; }
+  .sessions-list { display:flex; flex-direction:column; gap:8px; }
+  .session-item { display:flex; align-items:center; gap:10px; background:var(--surface); border:1px solid var(--border); border-radius:11px; padding:11px 13px; }
+  .sdot { width:7px; height:7px; border-radius:50%; flex-shrink:0; }
+  .sdot.connected { background:var(--green); box-shadow:0 0 7px var(--green); }
+  .sdot.connecting,.sdot.reconnecting { background:var(--yellow); animation:pulse 1s infinite; }
+  .sdot.logged_out,.sdot.error { background:var(--red); }
+  .sinfo { flex:1; min-width:0; }
+  .sname { font-size:13px; font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .sphone { font-size:10px; color:var(--muted); font-family:var(--mono); margin-top:2px; }
+  .sbadge { font-size:9px; font-family:var(--mono); padding:3px 7px; border-radius:20px; text-transform:uppercase; letter-spacing:0.3px; flex-shrink:0; font-weight:600; }
+  .sbadge.connected { background:var(--green-glow); color:var(--green); border:1px solid var(--green-dim); }
+  .sbadge.connecting,.sbadge.reconnecting { background:rgba(240,180,41,0.08); color:var(--yellow); border:1px solid rgba(240,180,41,0.2); }
+  .sbadge.logged_out,.sbadge.error { background:rgba(240,68,68,0.08); color:var(--red); border:1px solid rgba(240,68,68,0.2); }
+  .empty { text-align:center; color:var(--muted); font-size:12px; font-family:var(--mono); padding:18px 0; }
+
+  /* SPINNER */
+  .spinner { display:inline-block; width:10px; height:10px; border:2px solid #040a06; border-top-color:transparent; border-radius:50%; animation:spin 0.6s linear infinite; vertical-align:middle; margin-right:4px; }
+  @keyframes spin { to { transform:rotate(360deg); } }
+  .spinner-green { border-color:var(--green-dim); border-top-color:var(--green); }
+
+  /* CHECK STATUS BOX */
+  .check-result { display:none; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:14px; margin-top:12px; text-align:center; }
+  .check-result.show { display:block; }
+
+  /* FOOTER */
+  footer { width:100%; padding:18px 16px 28px; text-align:center; border-top:1px solid var(--border); margin-top:4px; }
+  .footer-powered { font-size:10px; color:var(--muted); font-family:var(--mono); text-transform:uppercase; letter-spacing:0.8px; }
+  .footer-name { font-size:13px; font-weight:700; color:var(--green); margin-top:4px; letter-spacing:0.3px; }
+  .footer-copy { font-size:10px; color:var(--muted); font-family:var(--mono); margin-top:2px; }
+
+  /* LOGIN TYPE CARDS */
+  .login-type-card {
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+  }
+  .login-type-card:hover { border-color: var(--green-dim); }
+  .login-type-card.selected { border-color: var(--green); background: var(--green-glow); }
+  .login-type-card.selected::after { content:'✓'; position:absolute; top:8px; right:10px; font-size:12px; color:var(--green); font-weight:800; }
+  .lt-emoji { font-size:26px; margin-bottom:6px; }
+  .lt-name { font-size:14px; font-weight:800; color:var(--text); margin-bottom:3px; }
+  .lt-desc { font-size:10px; color:var(--muted); font-family:var(--mono); }
+
+  .tab-section { display:none; }
+  .tab-section.active { display:flex; flex-direction:column; gap:14px; }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="pulse-dot"></div>
+  <div>
+    <div class="topbar-title">US MOD MD</div>
+    <div class="topbar-sub">Multi-Session Panel</div>
+  </div>
+  <div class="topbar-badge">● Online</div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="profile-card">
+    <div class="profile-img-wrap"><img src="/owner.jpg" alt="Owner"></div>
+    <div class="profile-info">
+      <img src="/owner.jpg" class="profile-avatar" alt="Avatar">
+      <div class="profile-text">
+        <div class="profile-name">Usman Khan Chachar</div>
+        <div class="profile-role">US MOD MD Developer</div>
+      </div>
+      <div class="profile-copy"><div>©Powered By</div><b>Usman Khan Chachar</b></div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main>
+
+  <!-- TAB BAR -->
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('connect')">📱 Connect</button>
+    <button class="tab-btn" onclick="switchTab('premium')">💎 Premium</button>
+    <button class="tab-btn" onclick="switchTab('sessions')">🖥️ Sessions</button>
+  </div>
+
+  <!-- ══ TAB 1: CONNECT ══════════════════════════════════════════════════ -->
+  <div class="tab-section active" id="tab-connect">
+
+    <!-- Login Type Selector -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">🔑</div>
+        <div class="card-title">Login Type Chunein</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <!-- FREE -->
+        <div class="login-type-card selected" id="type-free" onclick="selectLoginType('free')">
+          <div class="lt-emoji">🆓</div>
+          <div class="lt-name">Free</div>
+          <div class="lt-desc">Basic commands</div>
+          <div style="font-size:10px;color:var(--text2);line-height:1.8;margin-top:8px;font-family:var(--mono);">
+            ✅ Sticker, TTS<br>
+            ✅ Games<br>
+            ❌ AI / Imagine<br>
+            ❌ Attack tools
+          </div>
+        </div>
+        <!-- PREMIUM -->
+        <div class="login-type-card" id="type-premium" onclick="selectLoginType('premium')">
+          <div class="lt-emoji">💎</div>
+          <div class="lt-name" style="color:var(--green);">Premium</div>
+          <div class="lt-desc">Sab commands</div>
+          <div style="font-size:10px;color:var(--text2);line-height:1.8;margin-top:8px;font-family:var(--mono);">
+            ✅ AI / Imagine<br>
+            ✅ Attack tools<br>
+            ✅ All downloaders<br>
+            ✅ Priority support
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FREE PAIR SECTION -->
+    <div id="section-free">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon">📱</div>
+          <div class="card-title">Free — Connect Number</div>
+          <span class="status-badge free" style="margin-left:auto;">🆓 FREE</span>
+        </div>
+        <input type="tel" id="phoneInput" placeholder="923xxxxxxxxx" maxlength="15">
+        <div class="hint">Country code ke saath — 923001234567</div>
+        <button class="btn-primary" id="pairBtn" onclick="getPairingCode()" style="margin-top:10px;">Get Pairing Code</button>
+        <div class="alert" id="pairAlert"></div>
+        <div class="code-box" id="codeBox">
+          <div class="code-inner">
+            <div class="code-label">WhatsApp Pairing Code</div>
+            <div class="code-value" id="codeValue">----</div>
+            <div class="code-divider"></div>
+            <div class="code-steps">
+              <b>1.</b> WhatsApp → Settings<br>
+              <b>2.</b> Linked Devices → Link a Device<br>
+              <b>3.</b> "Link with phone number instead" tap karein<br>
+              <b>4.</b> Upar wala code enter karein
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PREMIUM PAIR SECTION -->
+    <div id="section-premium" style="display:none;">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon">💎</div>
+          <div class="card-title">Premium — Connect Number</div>
+          <span class="status-badge paid" style="margin-left:auto;">💎 PAID</span>
+        </div>
+        <input type="tel" id="premPhoneInput" placeholder="923xxxxxxxxx" maxlength="15">
+        <div class="hint">Wahi number jo premium purchase pe diya tha</div>
+        <button class="btn-primary" id="premPairBtn" onclick="getPairingCodePremium()" style="margin-top:10px;">✅ Verify & Get Code</button>
+        <div class="alert" id="premPairAlert"></div>
+        <div class="code-box" id="premCodeBox">
+          <div class="code-inner">
+            <div class="code-label">WhatsApp Pairing Code (Premium)</div>
+            <div class="code-value" id="premCodeValue">----</div>
+            <div class="code-divider"></div>
+            <div class="code-steps">
+              <b>1.</b> WhatsApp → Settings<br>
+              <b>2.</b> Linked Devices → Link a Device<br>
+              <b>3.</b> "Link with phone number instead" tap karein<br>
+              <b>4.</b> Upar wala code enter karein
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:12px;padding:10px 13px;background:rgba(240,180,41,0.07);border:1px solid rgba(240,180,41,0.2);border-radius:10px;font-size:11px;color:var(--yellow);font-family:var(--mono);">
+          💡 Premium nahi liya? <span onclick="switchTab('premium')" style="color:var(--green);cursor:pointer;text-decoration:underline;">Yahan se kharido →</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Check Status -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">🔍</div>
+        <div class="card-title">Check Premium Status</div>
+      </div>
+      <div class="input-gap">
+        <input type="tel" id="checkPhone" placeholder="923xxxxxxxxx" maxlength="15">
+        <button class="btn-primary" onclick="checkStatus()">Check Karo</button>
+      </div>
+      <div class="check-result" id="checkResult"></div>
+    </div>
+
+  </div>
+
+  <!-- ══ TAB 2: PREMIUM (EASYPAISA) ═════════════════════════════════════ -->
+  <div class="tab-section" id="tab-premium">
+
+    <!-- Plan select -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">💎</div>
+        <div class="card-title">Plan Chunein</div>
+      </div>
+
+      <div class="plans-grid" id="plansGrid">
+        <!-- JS se load hoga -->
+        <div class="plan-card selected" data-plan="weekly" onclick="selectPlan('weekly')">
+          <div class="plan-name">Weekly</div>
+          <div class="plan-price">50 <span>Rs</span></div>
+          <div class="plan-days">7 Din</div>
+        </div>
+        <div class="plan-card" data-plan="monthly" onclick="selectPlan('monthly')">
+          <div class="plan-name">Monthly</div>
+          <div class="plan-price">100 <span>Rs</span></div>
+          <div class="plan-days">30 Din</div>
+          <div class="plan-badge">Popular</div>
+        </div>
+        <div class="plan-card" data-plan="3month" onclick="selectPlan('3month')">
+          <div class="plan-name">3 Month</div>
+          <div class="plan-price">250 <span>Rs</span></div>
+          <div class="plan-days">90 Din</div>
+        </div>
+        <div class="plan-card" data-plan="6month" onclick="selectPlan('6month')">
+          <div class="plan-name">6 Month</div>
+          <div class="plan-price">400 <span>Rs</span></div>
+          <div class="plan-days">180 Din</div>
+          <div class="plan-badge">Best Value</div>
+        </div>
+        <div class="plan-card" data-plan="yearly" onclick="selectPlan('yearly')">
+          <div class="plan-name">Yearly</div>
+          <div class="plan-price">700 <span>Rs</span></div>
+          <div class="plan-days">365 Din</div>
+          <div class="plan-badge">🔥 Max Save</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Easypaisa Payment -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">💳</div>
+        <div class="card-title">Easypaisa Payment</div>
+      </div>
+
+      <!-- EP account info -->
+      <div class="ep-box">
+        <div class="ep-title">📲 Is number pe send karein</div>
+        <div class="ep-row">
+          <span class="ep-label">Account:</span>
+          <span class="ep-value" id="epNumber">Loading...</span>
+          <span class="ep-copy" onclick="copyText('epNumber')">Copy</span>
+        </div>
+        <div class="ep-row">
+          <span class="ep-label">Name:</span>
+          <span style="font-size:12px;color:var(--text2);font-family:var(--mono);" id="epName">Loading...</span>
+        </div>
+        <div class="code-divider" style="margin:10px 0;"></div>
+        <div class="ep-label" style="margin-bottom:4px;">Amount to Send:</div>
+        <div class="ep-amount" id="epAmount">Rs. 50 <span>(Weekly)</span></div>
+      </div>
+
+      <!-- Steps -->
+      <div style="font-size:11px;color:var(--text2);font-family:var(--mono);line-height:2.2;margin-bottom:14px;">
+        <b style="color:var(--green);">1.</b> Upar wale number pe payment karein<br>
+        <b style="color:var(--green);">2.</b> TXN ID copy karein (Easypaisa message se)<br>
+        <b style="color:var(--green);">3.</b> Neeche form fill karein<br>
+        <b style="color:var(--green);">4.</b> Owner 1-2 ghante mein activate kar dega ✅
+      </div>
+
+      <!-- Form -->
+      <div class="input-gap">
+        <input type="tel" id="payPhone" placeholder="Apna WhatsApp number (923xxxxxxxxx)" maxlength="15">
+        <input type="text" id="payName" placeholder="Apna naam (optional)">
+        <input type="text" id="payTxn" placeholder="Easypaisa TXN ID (e.g. MP241234567)" maxlength="30">
+      </div>
+
+      <button class="btn-primary" id="payBtn" onclick="submitPayment()" style="margin-top:12px;">
+        💳 Payment Submit Karein
+      </button>
+      <div class="alert" id="payAlert"></div>
+    </div>
+
+  </div>
+
+  <!-- ══ TAB 3: SESSIONS ════════════════════════════════════════════════ -->
+  <div class="tab-section" id="tab-sessions">
+    <div class="card">
+      <!-- LOCK STATE -->
+      <div id="lockSection">
+        <div class="card-header">
+          <div class="card-icon">🔒</div>
+          <div class="card-title">Active Sessions</div>
+        </div>
+        <div class="lock-wrap">
+          <div class="lock-emoji">🔐</div>
+          <div class="lock-title">Owner Only Access</div>
+          <div class="lock-sub">Sirf owner dekh aur remove kar sakta hai</div>
+          <input type="password" id="sessionPass" placeholder="Password dalein..." style="margin-top:4px;" onkeydown="if(event.key==='Enter') unlockSessions()">
+          <button class="btn-primary" onclick="unlockSessions()" style="margin-top:4px;">🔓 Unlock</button>
+          <div class="lock-err" id="lockErr">❌ Password galat hai</div>
+        </div>
+      </div>
+
+      <!-- UNLOCKED STATE -->
+      <div class="sessions-wrap" id="sessionsSection">
+        <div class="card-header">
+          <div class="card-icon">✅</div>
+          <div class="card-title">Active Sessions</div>
+          <div class="card-title-right">
+            <button class="btn-ghost" onclick="loadSessions()">↻ Refresh</button>
+            <button class="btn-ghost" onclick="lockSessions()" style="color:var(--red);border-color:rgba(240,68,68,0.25);">🔒 Lock</button>
+          </div>
+        </div>
+        <div class="sessions-list" id="sessionsList"><div class="empty">Loading...</div></div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-powered">©Powered By</div>
+  <div class="footer-name">Usman Khan Chachar</div>
+  <div class="footer-copy">US MOD MD — Multi-Session WhatsApp Panel</div>
+</footer>
+
+<script>
+  const SECRET = 'usman-md-secret';
+  const SESSION_PASSWORD = 'usman786';  // ← change karo
+
+  let selectedPlan = 'weekly';
+  let plansData = {
+    weekly:   { label:'Weekly',  days:7,   price:50  },
+    monthly:  { label:'Monthly', days:30,  price:100 },
+    '3month': { label:'3 Month', days:90,  price:250 },
+    '6month': { label:'6 Month', days:180, price:400 },
+    yearly:   { label:'Yearly',  days:365, price:700 },
+  };
+  let epNumber = '03xxxxxxxxx';
+  let epName   = 'Usman Khan Chachar';
+
+  // ── Tab switch ────────────────────────────────────────────────────────
+  function switchTab(tab) {
+    document.querySelectorAll('.tab-section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + tab).classList.add('active');
+    event.target.classList.add('active');
+    if (tab === 'premium') loadPlans();
+  }
+
+  // ── Plan select ───────────────────────────────────────────────────────
+  function selectPlan(plan) {
+    selectedPlan = plan;
+    document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('selected'));
+    document.querySelector(`[data-plan="${plan}"]`).classList.add('selected');
+    updateAmountDisplay();
+  }
+
+  function updateAmountDisplay() {
+    const p = plansData[selectedPlan];
+    if (!p) return;
+    document.getElementById('epAmount').innerHTML = `Rs. ${p.price} <span>(${p.label})</span>`;
+  }
+
+  // ── Load plans from server ────────────────────────────────────────────
+  async function loadPlans() {
+    try {
+      const res = await fetch('/api/plans');
+      const data = await res.json();
+      if (data.success) {
+        plansData = data.plans;
+        epNumber = data.easypaisa.number;
+        epName   = data.easypaisa.name;
+        document.getElementById('epNumber').textContent = epNumber;
+        document.getElementById('epName').textContent   = epName;
+        updateAmountDisplay();
+      }
+    } catch(e) {
+      document.getElementById('epNumber').textContent = epNumber;
+      document.getElementById('epName').textContent   = epName;
+    }
+  }
+
+  // ── Copy helper ───────────────────────────────────────────────────────
+  function copyText(elId) {
+    const txt = document.getElementById(elId).textContent;
+    navigator.clipboard.writeText(txt).then(() => {
+      const el = event.target;
+      el.textContent = '✓ Copied';
+      setTimeout(() => el.textContent = 'Copy', 1500);
+    });
+  }
+
+  // ── Submit payment ────────────────────────────────────────────────────
+  async function submitPayment() {
+    const phone = document.getElementById('payPhone').value.trim().replace(/[^0-9]/g,'');
+    const name  = document.getElementById('payName').value.trim();
+    const txnId = document.getElementById('payTxn').value.trim().toUpperCase();
+    const btn   = document.getElementById('payBtn');
+    const alertEl = document.getElementById('payAlert');
+    alertEl.className = 'alert';
+
+    if (!phone || phone.length < 10) { showA('payAlert','error','❌ Valid WhatsApp number dalo (country code ke saath)'); return; }
+    if (!txnId || txnId.length < 4)  { showA('payAlert','error','❌ TXN ID dalo'); return; }
+
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span>Submit ho raha hai...';
+    showA('payAlert','info','⏳ Processing...');
+
+    try {
+      const res = await fetch('/api/payment', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ phone, name, txnId, plan: selectedPlan })
+      });
+      const data = await res.json();
+      if (data.success) {
+        showA('payAlert','success','✅ ' + data.message);
+        document.getElementById('payPhone').value = '';
+        document.getElementById('payTxn').value   = '';
+        document.getElementById('payName').value  = '';
+      } else {
+        showA('payAlert','error','❌ ' + data.message);
+      }
+    } catch(e) {
+      showA('payAlert','error','❌ Connection error: ' + e.message);
+    }
+    btn.disabled = false;
+    btn.innerHTML = '💳 Payment Submit Karein';
+  }
+
+  // ── Check status ──────────────────────────────────────────────────────
+  async function checkStatus() {
+    const phone = document.getElementById('checkPhone').value.trim().replace(/[^0-9]/g,'');
+    const resEl = document.getElementById('checkResult');
+    resEl.className = 'check-result';
+    if (!phone || phone.length < 10) { resEl.className='check-result show'; resEl.innerHTML='<span style="color:var(--red);font-size:12px;">❌ Valid number dalo</span>'; return; }
+
+    resEl.className='check-result show';
+    resEl.innerHTML='<span class="spinner spinner-green"></span>';
+
+    try {
+      const res = await fetch(`/api/checkpaid?phone=${phone}`);
+      const data = await res.json();
+      if (data.isPaid) {
+        const plan = plansData[data.plan] || { label: data.plan };
+        const exp  = data.expiry === 'lifetime' ? 'Lifetime' : new Date(data.expiry).toLocaleDateString('en-PK',{day:'2-digit',month:'short',year:'numeric'});
+        resEl.innerHTML = `<span class="status-badge paid">💎 PREMIUM ACTIVE</span><div style="font-size:11px;color:var(--text2);font-family:var(--mono);margin-top:8px;">Plan: ${plan.label} • Expiry: ${exp}</div>`;
+      } else {
+        resEl.innerHTML = `<span class="status-badge free">🆓 FREE USER</span><div style="font-size:11px;color:var(--muted);font-family:var(--mono);margin-top:8px;">Premium ke liye "💎 Premium" tab pe jao</div>`;
+      }
+    } catch(e) {
+      resEl.innerHTML = '<span style="color:var(--red);font-size:12px;">❌ Error checking status</span>';
+    }
+  }
+
+  // ── Alert helper ──────────────────────────────────────────────────────
+  function showA(id, type, msg) {
+    const el = document.getElementById(id);
+    el.className = `alert ${type} show`;
+    el.textContent = msg;
+  }
+
+  // ── API call ──────────────────────────────────────────────────────────
+  async function apiCall(endpoint, method='GET', body=null) {
+    const opts = { method, headers:{ 'Content-Type':'application/json','x-api-secret':SECRET } };
+    if (body) opts.body = JSON.stringify(body);
+    const res = await fetch(endpoint, opts);
+    return res.json();
+  }
+
+  // ── Sessions ──────────────────────────────────────────────────────────
+  function unlockSessions() {
+    const val = document.getElementById('sessionPass').value;
+    if (val === SESSION_PASSWORD) {
+      document.getElementById('lockSection').style.display = 'none';
+      document.getElementById('sessionsSection').classList.add('unlocked');
+      document.getElementById('lockErr').classList.remove('show');
+      loadSessions();
+    } else {
+      document.getElementById('lockErr').classList.add('show');
+      document.getElementById('sessionPass').value = '';
+    }
+  }
+  function lockSessions() {
+    document.getElementById('lockSection').style.display = '';
+    document.getElementById('sessionsSection').classList.remove('unlocked');
+    document.getElementById('sessionPass').value = '';
+  }
+  async function loadSessions() {
+    const list = document.getElementById('sessionsList');
+    try {
+      const data = await apiCall('/api/sessions');
+      const sessions = data.sessions || [];
+      if (!sessions.length) { list.innerHTML = '<div class="empty">📭 Koi session connected nahi</div>'; return; }
+      list.innerHTML = sessions.map(s => `
+        <div class="session-item">
+          <div class="sdot ${s.status}"></div>
+          <div class="sinfo">
+            <div class="sname">${s.name || s.phone}</div>
+            <div class="sphone">${s.phone}</div>
+          </div>
+          <span class="sbadge ${s.status}">${s.status}</span>
+          <button class="btn-danger" onclick="disconnect('${s.phone}')">Logout</button>
+        </div>`).join('');
+    } catch(e) { list.innerHTML = '<div class="empty">⚠️ Load nahi hua</div>'; }
+  }
+  async function disconnect(phone) {
+    if (!confirm(phone + ' ko logout karna chahte hain?')) return;
+    await apiCall('/api/disconnect','POST',{ phone });
+    loadSessions();
+  }
+
+  // ── Login type selector ──────────────────────────────────────────────
+  let loginType = 'free';
+  function selectLoginType(type) {
+    loginType = type;
+    document.querySelectorAll('.login-type-card').forEach(c => c.classList.remove('selected'));
+    document.getElementById('type-' + type).classList.add('selected');
+    document.getElementById('section-free').style.display    = type === 'free'    ? '' : 'none';
+    document.getElementById('section-premium').style.display = type === 'premium' ? '' : 'none';
+    // Reset alerts & code boxes
+    ['pairAlert','premPairAlert'].forEach(id => { const e = document.getElementById(id); if(e) e.className='alert'; });
+    ['codeBox','premCodeBox'].forEach(id => { const e = document.getElementById(id); if(e) e.className='code-box'; });
+  }
+
+  // ── Premium pairing (verify first) ───────────────────────────────────
+  async function getPairingCodePremium() {
+    const phone = document.getElementById('premPhoneInput').value.trim().replace(/[^0-9]/g,'');
+    const btn   = document.getElementById('premPairBtn');
+    document.getElementById('premPairAlert').className = 'alert';
+    document.getElementById('premCodeBox').className   = 'code-box';
+
+    if (!phone || phone.length < 10) {
+      showA('premPairAlert','error','❌ Valid number dalo (country code ke saath)');
+      return;
+    }
+
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span>Verify ho raha hai...';
+    showA('premPairAlert','info','⏳ Premium status check ho raha hai...');
+
+    try {
+      // Step 1: check if paid
+      const chk = await fetch('/api/checkpaid?phone=' + phone);
+      const chkData = await chk.json();
+
+      if (!chkData.isPaid) {
+        showA('premPairAlert','error','❌ Ye number premium nahi hai! Pehle payment karo.');
+        btn.disabled = false;
+        btn.innerHTML = '✅ Verify & Get Code';
+        return;
+      }
+
+      // Step 2: get pairing code
+      showA('premPairAlert','info','✅ Premium verified! Code aa raha hai...');
+      const data = await apiCall('/api/pair','POST',{ phone });
+      if (data.success) {
+        document.getElementById('premCodeValue').textContent = data.code;
+        document.getElementById('premCodeBox').className = 'code-box show';
+        showA('premPairAlert','success','✅ Code mil gaya! Premium user ke taur par connect karein.');
+      } else {
+        showA('premPairAlert','error','❌ ' + (data.message || 'Error aya'));
+      }
+    } catch(e) {
+      showA('premPairAlert','error','❌ Connection error: ' + e.message);
+    }
+    btn.disabled = false;
+    btn.innerHTML = '✅ Verify & Get Code';
+  }
+
+  // Init
+  document.getElementById('phoneInput').addEventListener('keydown', e => { if(e.key==='Enter') getPairingCode(); });
+  document.getElementById('premPhoneInput').addEventListener('keydown', e => { if(e.key==='Enter') getPairingCodePremium(); });
+
+  // ── Pairing code ──────────────────────────────────────────────────────
+  async function getPairingCode() {
+    const phone = document.getElementById('phoneInput').value.trim().replace(/[^0-9]/g,'');
+    const btn = document.getElementById('pairBtn');
+    document.getElementById('pairAlert').className = 'alert';
+    document.getElementById('codeBox').className = 'code-box';
+    if (!phone || phone.length < 10) { showA('pairAlert','error','❌ Valid number dalo (country code ke saath)'); return; }
+    btn.disabled = true; btn.innerHTML = '<span class="spinner"></span>Wait...';
+    showA('pairAlert','info','⏳ Pairing code aa raha hai...');
+    try {
+      const data = await apiCall('/api/pair','POST',{ phone });
+      if (data.success) {
+        document.getElementById('codeValue').textContent = data.code;
+        document.getElementById('codeBox').className = 'code-box show';
+        showA('pairAlert','success','✅ Code mil gaya! 3 minute mein enter karein.');
+      } else {
+        showA('pairAlert','error','❌ ' + (data.message || 'Error aya'));
+      }
+    } catch(e) { showA('pairAlert','error','❌ Connection error: ' + e.message); }
+    btn.disabled = false; btn.innerHTML = 'Get Pairing Code';
+  }
+</script>
+</body>
+</html>
