@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { channelInfo } = require('../lib/messageConfig');
+const { channelInfo } = require('../../lib/messageConfig');
 
 async function characterCommand(sock, chatId, message) {
     let userToAnalyze;

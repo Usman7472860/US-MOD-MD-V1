@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { channelInfo } = require('../lib/messageConfig');
+const { channelInfo } = require('../../lib/messageConfig');
 
 async function wastedCommand(sock, chatId, message) {
     let userToWaste;
