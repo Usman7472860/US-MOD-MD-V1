@@ -1,5 +1,5 @@
 const fetch = require('node-fetch');
-const { writeExifImg } = require('../lib/exif');
+const { writeExifImg } = require('../../lib/exif');
 const delay = time => new Promise(res => setTimeout(res, time));
 const fs = require('fs');
 const path = require('path');
@@ -7,7 +7,7 @@ const sharp = require('sharp');
 const webp = require('node-webpmux');
 const crypto = require('crypto');
 const { exec } = require('child_process');
-const settings = require('../settings');
+const settings = require('../../settings');
 
 async function stickerTelegramCommand(sock, chatId, msg) {
     try {

@@ -2,7 +2,7 @@ const { downloadMediaMessage } = require('@whiskeysockets/baileys');
 const { exec } = require('child_process');
 const fs = require('fs');
 const path = require('path');
-const settings = require('../settings');
+const settings = require('../../settings');
 const webp = require('node-webpmux');
 const crypto = require('crypto');
 
@@ -36,8 +36,8 @@ async function stickercropCommand(sock, chatId, message) {
                 
                 
                 forwardedNewsletterMessageInfo: {
-                    newsletterJid: '120363428492698734@newsletter',
-                    newsletterName: 'US MOD MD V1',
+                    newsletterJid: '120363161513685998@newsletter',
+                    newsletterName: 'US MOD BOT',
                     serverMessageId: -1
                 }
             }
@@ -58,8 +58,8 @@ async function stickercropCommand(sock, chatId, message) {
                     
                     
                     forwardedNewsletterMessageInfo: {
-                        newsletterJid: '120363428492698734@newsletter',
-                        newsletterName: 'US MOD MD V1',
+                        newsletterJid: '120363161513685998@newsletter',
+                        newsletterName: 'US MOD BOT',
                         serverMessageId: -1
                     }
                 }
@@ -149,7 +149,7 @@ async function stickercropCommand(sock, chatId, message) {
         // Create metadata
         const json = {
             'sticker-pack-id': crypto.randomBytes(32).toString('hex'),
-            'sticker-pack-name': settings.packname || 'US MOD MD V1',
+            'sticker-pack-name': settings.packname || 'US MOD',
             'emojis': ['✂️']
         };
 
@@ -186,8 +186,8 @@ async function stickercropCommand(sock, chatId, message) {
                 
                 
                 forwardedNewsletterMessageInfo: {
-                    newsletterJid: '120363428492698734@newsletter',
-                    newsletterName: 'US MOD MD V1',
+                    newsletterJid: '120363161513685998@newsletter',
+                    newsletterName: 'US MOD BOT',
                     serverMessageId: -1
                 }
             }
@@ -235,7 +235,7 @@ async function stickercropFromBuffer(inputBuffer, isAnimated) {
     await img.load(webpBuffer);
     const json = {
         'sticker-pack-id': crypto.randomBytes(32).toString('hex'),
-        'sticker-pack-name': settings.packname || 'US MOD MD V1',
+        'sticker-pack-name': settings.packname || 'US MOD',
         'emojis': ['✂️']
     };
     const exifAttr = Buffer.from([0x49, 0x49, 0x2A, 0x00, 0x08, 0x00, 0x00, 0x00, 0x01, 0x00, 0x41, 0x57, 0x07, 0x00, 0x00, 0x00, 0x00, 0x00, 0x16, 0x00, 0x00, 0x00]);

