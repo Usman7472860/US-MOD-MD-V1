@@ -5,10 +5,10 @@
 
 const fs = require('fs');
 const path = require('path');
-const settings = require('../settings');
+const settings = require('../../settings');
 
-const PAYMENTS_FILE = path.join(__dirname, '../data/payments.json');
-const PAID_FILE = path.join(__dirname, '../data/paid_users.json');
+const PAYMENTS_FILE = path.join(__dirname, '../../data/payments.json');
+const PAID_FILE = path.join(__dirname, '../../data/paid_users.json');
 
 // ─── Plans config (prices change karo yahan) ───────────────────────────────
 const PLANS = {
@@ -83,14 +83,14 @@ async function approvePayment(sock, chatId, message, args, senderIsOwner) {
     const expiryStr = expiry.toLocaleDateString('en-PK', { day: '2-digit', month: 'short', year: 'numeric' });
 
     await sock.sendMessage(chatId, {
-        text: `✅ *Payment Approved!*\n\n📱 *Number:* ${phone}\n📦 *Plan:* ${plan.label}\n📅 *Expiry:* ${expiryStr}\n\n> 𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 M Usman Chachar`
+        text: `✅ *Payment Approved!*\n\n📱 *Number:* ${phone}\n📦 *Plan:* ${plan.label}\n📅 *Expiry:* ${expiryStr}\n\n> 𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐔𝐬𝐦𝐚𝐧 𝐊𝐡𝐚𝐧 𝐂𝐡𝐚𝐜𝐡𝐚𝐫`
     }, { quoted: message });
 
     // Notify the user on WhatsApp
     try {
         const userJid = `${phone}@s.whatsapp.net`;
         await sock.sendMessage(userJid, {
-            text: `🎉 *US MOD MD — Premium Activated!*\n\n✅ Aapka payment approve ho gaya!\n\n📦 *Plan:* ${plan.label}\n📅 *Expiry:* ${expiryStr}\n\nAb aap sab premium commands use kar sakte hain! 🚀\n\n> 𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 M Usman Chachar`
+            text: `🎉 *US MOD MD — Premium Activated!*\n\n✅ Aapka payment approve ho gaya!\n\n📦 *Plan:* ${plan.label}\n📅 *Expiry:* ${expiryStr}\n\nAb aap sab premium commands use kar sakte hain! 🚀\n\n> 𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐔𝐬𝐦𝐚𝐧 𝐊𝐡𝐚𝐧 𝐂𝐡𝐚𝐜𝐡𝐚𝐫`
         });
     } catch (e) {
         console.log('User notify failed:', e.message);

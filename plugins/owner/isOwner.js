@@ -1,4 +1,4 @@
-const settings = require('../settings');
+const settings = require('../../settings');
 const { isSudo } = require('./index');
 
 // ── Simple in-memory cache for groupMetadata to avoid rate-overlimit (429) ──

@@ -1,5 +1,5 @@
 const fs = require('fs');
-const isOwnerOrSudo = require('../lib/isOwner');
+const isOwnerOrSudo = require('../../lib/isOwner');
 
 const PMBLOCKER_PATH = './data/pmblocker.json';
 

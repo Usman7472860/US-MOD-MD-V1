@@ -9,7 +9,7 @@ function readJsonSafe(path, fallback) {
     }
 }
 
-const isOwnerOrSudo = require('../lib/isOwner');
+const isOwnerOrSudo = require('../../lib/isOwner');
 
 async function settingsCommand(sock, chatId, message) {
     try {

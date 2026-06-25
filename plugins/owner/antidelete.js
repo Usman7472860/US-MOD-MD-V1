@@ -10,8 +10,8 @@ const { writeFile } = require('fs/promises');
 // messageStore ko session ke hisaab se rakhte hain: { sessionId: Map(messageId -> data) }
 const sessionMessageStores = new Map();
 
-const DATA_DIR = path.join(__dirname, '../data');
-const TEMP_MEDIA_DIR = path.join(__dirname, '../tmp');
+const DATA_DIR = path.join(__dirname, '../../data');
+const TEMP_MEDIA_DIR = path.join(__dirname, '../../tmp');
 
 // sock.user.id format hota hai "923xxxxxxxxx:12@s.whatsapp.net" — sirf number nikalo
 function getSessionId(sock) {
@@ -87,7 +87,7 @@ function saveAntideleteConfig(sock, config) {
     } catch {}
 }
 
-const isOwnerOrSudo = require('../lib/isOwner');
+const isOwnerOrSudo = require('../../lib/isOwner');
 
 // ── Helpers ──
 function bareNumber(jid) {

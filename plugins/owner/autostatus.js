@@ -1,14 +1,14 @@
 const fs = require('fs');
 const path = require('path');
-const isOwnerOrSudo = require('../lib/isOwner');
+const isOwnerOrSudo = require('../../lib/isOwner');
 
 const channelInfo = {
     contextInfo: {
         
         
         forwardedNewsletterMessageInfo: {
-            newsletterJid: '120363428492698734@newsletter',
-            newsletterName: 'US MOD MD V1',
+            newsletterJid: '120363161513685998@newsletter',
+            newsletterName: 'US MOD BOT',
             serverMessageId: -1
         }
     }
@@ -22,7 +22,7 @@ const reactionEmojis = [
 ];
 
 // Path to store auto status configuration
-const configPath = path.join(__dirname, '../data/autoStatus.json');
+const configPath = path.join(__dirname, '../../data/autoStatus.json');
 
 // Initialize config file if it doesn't exist
 if (!fs.existsSync(configPath)) {

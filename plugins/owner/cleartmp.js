@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const isOwnerOrSudo = require('../lib/isOwner');
+const isOwnerOrSudo = require('../../lib/isOwner');
 
 // Function to clear a single directory
 function clearDirectory(dirPath) {

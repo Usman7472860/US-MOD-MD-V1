@@ -2,8 +2,8 @@ const { exec } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 const https = require('https');
-const settings = require('../settings');
-const isOwnerOrSudo = require('../lib/isOwner');
+const settings = require('../../settings');
+const isOwnerOrSudo = require('../../lib/isOwner');
 
 function run(cmd) {
     return new Promise((resolve, reject) => {
@@ -150,7 +150,7 @@ async function updateViaZip(sock, chatId, message, zipOverride) {
     let preservedOwner = null;
     let preservedBotOwner = null;
     try {
-        const currentSettings = require('../settings');
+        const currentSettings = require('../../settings');
         preservedOwner = currentSettings && currentSettings.ownerNumber ? String(currentSettings.ownerNumber) : null;
         preservedBotOwner = currentSettings && currentSettings.botOwner ? String(currentSettings.botOwner) : null;
     } catch {}
@@ -214,7 +214,7 @@ async function updateCommand(sock, chatId, message, zipOverride) {
             // silent
         }
         try {
-            const v = require('../settings').version || '';
+            const v = require('../../settings').version || '';
             await sock.sendMessage(chatId, { text: `✅ Update done. Restarting…` }, { quoted: message });
         } catch {
             await sock.sendMessage(chatId, { text: '✅ Restared Successfully\n Type .ping to check latest version.' }, { quoted: message });

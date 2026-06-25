@@ -1,11 +1,11 @@
 /**
- * US MOD MD V1 - A WhatsApp Bot
+ * US MOD BOT - A WhatsApp Bot
  * Autotyping Command - Shows fake typing status
  */
 
 const fs = require('fs');
 const path = require('path');
-const isOwnerOrSudo = require('../lib/isOwner');
+const isOwnerOrSudo = require('../../lib/isOwner');
 
 // Path to store the configuration
 const configPath = path.join(__dirname, '..', 'data', 'autotyping.json');
@@ -31,8 +31,8 @@ async function autotypingCommand(sock, chatId, message) {
 
 
                     forwardedNewsletterMessageInfo: {
-                        newsletterJid: '120363428492698734@newsletter',
-                        newsletterName: 'US MOD MD V1',
+                        newsletterJid: '120363161513685998@newsletter',
+                        newsletterName: 'US MOD BOT',
                         serverMessageId: -1
                     }
                 }
@@ -62,8 +62,8 @@ async function autotypingCommand(sock, chatId, message) {
 
 
                         forwardedNewsletterMessageInfo: {
-                            newsletterJid: '120363428492698734@newsletter',
-                            newsletterName: 'US MOD MD V1',
+                            newsletterJid: '120363161513685998@newsletter',
+                            newsletterName: 'US MOD BOT',
                             serverMessageId: -1
                         }
                     }
@@ -85,8 +85,8 @@ async function autotypingCommand(sock, chatId, message) {
 
 
                 forwardedNewsletterMessageInfo: {
-                    newsletterJid: '120363428492698734@newsletter',
-                    newsletterName: 'US MOD MD V1',
+                    newsletterJid: '120363161513685998@newsletter',
+                    newsletterName: 'US MOD BOT',
                     serverMessageId: -1
                 }
             }
@@ -100,8 +100,8 @@ async function autotypingCommand(sock, chatId, message) {
 
 
                 forwardedNewsletterMessageInfo: {
-                    newsletterJid: '120363428492698734@newsletter',
-                    newsletterName: 'US MOD MD V1',
+                    newsletterJid: '120363161513685998@newsletter',
+                    newsletterName: 'US MOD BOT',
                     serverMessageId: -1
                 }
             }

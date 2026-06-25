@@ -1,6 +1,6 @@
-const settings = require('../settings');
-const { addSudo, removeSudo, getSudoList } = require('../lib/index');
-const isOwnerOrSudo = require('../lib/isOwner');
+const settings = require('../../settings');
+const { addSudo, removeSudo, getSudoList } = require('../../lib/index');
+const isOwnerOrSudo = require('../../lib/isOwner');
 
 function extractMentionedJid(message) {
     const mentioned = message.message?.extendedTextMessage?.contextInfo?.mentionedJid || [];
