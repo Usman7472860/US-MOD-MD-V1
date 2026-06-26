@@ -10,7 +10,7 @@ const settings = {
   maxStoreMessages: 20,
   storeWriteInterval: 10000,
   description: "US MOD MD - WhatsApp Bot",
-  version: "3.0.7",
+  version: "V1.0",
   updateZipUrl: "null",
   prefix: ".",
 
