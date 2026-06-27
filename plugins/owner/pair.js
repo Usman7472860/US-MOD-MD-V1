@@ -27,9 +27,13 @@ let pairingSessionApi = null;
 function getPairingSessionApi() {
     if (pairingSessionApi) return pairingSessionApi;
     try {
-        // index.js exports { startPairingSession, activeSessions }
-        pairingSessionApi = require('../../index.js');
+        // bot.js is the real entrypoint and exports { startPairingSession, activeSessions }.
+        // (There is no index.js in this project — npm start / the host's launcher runs
+        // bot.js directly. Requiring a non-existent index.js silently failed here before,
+        // which is why pairing always errored out with "module not available".)
+        pairingSessionApi = require('../../bot.js');
     } catch (e) {
+        console.error('[pair.js] Failed to load bot.js pairing API:', e.message);
         pairingSessionApi = null;
     }
     return pairingSessionApi;
