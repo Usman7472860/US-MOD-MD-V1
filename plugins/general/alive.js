@@ -1,10 +1,18 @@
+/**
+ * US MOD MD — WhatsApp Bot
+ * Developed & Owned by: USMAN KHAN CHACHAR
+ * GitHub / Credit must remain intact. Do not remove or alter this header.
+ * Unauthorized redistribution without credit is a violation of the license.
+ */
+
 const settings = require("../../settings");
 async function aliveCommand(sock, chatId, message) {
     try {
         const message1 = `*🤖 US MOD BOT is Active!*\n\n` +
                        `*Version:* ${settings.version}\n` +
                        `*Status:* Online\n` +
-                       `*Mode:* Public\n\n` +
+                       `*Mode:* Public\n` +
+                       `*Developer:* USMAN KHAN CHACHAR\n\n` +
                        `*🌟 Features:*\n` +
                        `• Group Management\n` +
                        `• Antilink Protection\n` +
@@ -18,7 +26,7 @@ async function aliveCommand(sock, chatId, message) {
 
 
                 forwardedNewsletterMessageInfo: {
-                    newsletterJid: '120363161513685998@newsletter',
+                    newsletterJid: '120363428492698734@newsletter',
                     newsletterName: 'US MOD BOT',
                     serverMessageId: -1
                 }

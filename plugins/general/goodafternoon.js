@@ -1,3 +1,10 @@
+/**
+ * US MOD MD — WhatsApp Bot
+ * Developed & Owned by: USMAN KHAN CHACHAR
+ * GitHub / Credit must remain intact. Do not remove or alter this header.
+ * Unauthorized redistribution without credit is a violation of the license.
+ */
+
 const goodAfternoonReplies = [
     "Good Afternoon! ☀️ Dopahar ka khaana kha liya? Nahi toh sab kuch baad mein — pehle roti khao! 😄",
     "Good Afternoon yaar! 😎 Din ka sabse mushkil waqt — neend aa rahi hai par kaam bhi hai 😂",

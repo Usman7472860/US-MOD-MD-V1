@@ -1,3 +1,10 @@
+/**
+ * US MOD MD — WhatsApp Bot
+ * Developed & Owned by: USMAN KHAN CHACHAR
+ * GitHub / Credit must remain intact. Do not remove or alter this header.
+ * Unauthorized redistribution without credit is a violation of the license.
+ */
+
 const settings = require('../../settings');
 const fs = require('fs');
 const path = require('path');
@@ -15,7 +22,7 @@ async function helpCommand(sock, chatId, message) {
 
     const helpMessage = `
 ┌───⊰ *${botName}* ⊱───
-│ Version: *${settings.version || 'V1.0'}*
+│ Version: *${settings.version || '1.0'}*
 │ Owner: ${settings.botOwner || 'M Usman'}
 └──────────────⊙
 
@@ -113,6 +120,7 @@ ${section('GITHUBMENU', [
 ])}
 
 ┌───⊰ *${botName}* ⊱───
+│  Developed by: USMAN KHAN CHACHAR
 │  Join our channel for updates
 └──────────────⊙`;
 
@@ -129,7 +137,7 @@ ${section('GITHUBMENU', [
 
 
                     forwardedNewsletterMessageInfo: {
-                        newsletterJid: '120363161513685998@newsletter',
+                        newsletterJid: '120363428492698734@newsletter',
                         newsletterName: 'US MOD BOT',
                         serverMessageId: -1
                     }
@@ -143,8 +151,8 @@ ${section('GITHUBMENU', [
 
 
                     forwardedNewsletterMessageInfo: {
-                        newsletterJid: '120363161513685998@newsletter',
-                        newsletterName: 'US MOD BOT by Mr Unique Hacker',
+                        newsletterJid: '120363428492698734@newsletter',
+                        newsletterName: 'US MOD BOT',
                         serverMessageId: -1
                     } 
                 }
