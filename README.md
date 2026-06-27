@@ -1,5 +1,8 @@
 # US MOD MD - Fresh Bot
 
+**Developed & Owned by: USMAN KHAN CHACHAR**
+*Credit must remain intact in all copies/forks. See [LICENSE](./LICENSE).*
+
 Clean fresh bot with only 2 commands.
 
 ## Setup

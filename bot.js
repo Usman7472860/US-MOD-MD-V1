@@ -1,4 +1,11 @@
 /**
+ * US MOD MD — WhatsApp Bot
+ * Developed & Owned by: USMAN KHAN CHACHAR
+ * GitHub / Credit must remain intact. Do not remove or alter this header.
+ * Unauthorized redistribution without credit is a violation of the license.
+ */
+
+/**
  * US MOD MD - Bot (Bot-Hosting) + Pairing API
  */
 
@@ -31,6 +38,16 @@ const {
 } = require('@whiskeysockets/baileys');
 const NodeCache = require('node-cache');
 const pino = require('pino');
+
+// ── Startup credit banner ─────────────────────────────────────
+console.log(chalk.cyan(`
+╔══════════════════════════════════════════╗
+║            US MOD MD - WhatsApp Bot       ║
+║   Developed & Owned by: USMAN KHAN CHACHAR ║
+║   Unauthorized resale/republish without    ║
+║   credit is prohibited.                    ║
+╚══════════════════════════════════════════╝
+`));
 
 // Init store
 store.readFromFile();
@@ -376,3 +393,5 @@ async function loadExistingSessions() {
 loadExistingSessions();
 
 // (auto-restart handlers are registered above at startup)
+
+module.exports = { startPairingSession, activeSessions };

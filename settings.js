@@ -1,3 +1,10 @@
+/**
+ * US MOD MD — WhatsApp Bot
+ * Developed & Owned by: USMAN KHAN CHACHAR
+ * GitHub / Credit must remain intact. Do not remove or alter this header.
+ * Unauthorized redistribution without credit is a violation of the license.
+ */
+
 const settings = {
   packname: 'US MOD MD',
   author: 'USMAN',
@@ -10,7 +17,7 @@ const settings = {
   maxStoreMessages: 20,
   storeWriteInterval: 10000,
   description: "US MOD MD - WhatsApp Bot",
-  version: "V1.0",
+  version: "3.0.7",
   updateZipUrl: "null",
   prefix: ".",
 
