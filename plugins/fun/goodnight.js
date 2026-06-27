@@ -1,3 +1,10 @@
+/**
+ * US MOD MD — WhatsApp Bot
+ * Developed & Owned by: USMAN KHAN CHACHAR
+ * GitHub / Credit must remain intact. Do not remove or alter this header.
+ * Unauthorized redistribution without credit is a violation of the license.
+ */
+
 const goodNightReplies = [
     "Shab Bakhair! 🌙 Allah ki hifazat mein so jao — meethi neend aaye aur achhe khwab bhi 😊🤲",
     "Good Night! ⭐ Phone rakh do ab — neend teri bhi zaroorat hai aur phone ki bhi 😂🌙",
