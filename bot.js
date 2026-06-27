@@ -39,6 +39,26 @@ const {
 const NodeCache = require('node-cache');
 const pino = require('pino');
 
+// ════════════════════════════════════════════════════════════
+// IDEMPOTENCY GUARD
+// index.js is the bot's entrypoint (npm start runs this file) AND it
+// is also require()'d from plugins/owner/pair.js to reuse
+// startPairingSession(). Node normally caches modules so a second
+// require() just returns the cached exports without re-running this
+// file — but if anything ever loads this file under a different path
+// (different cwd, symlink, etc.) it would re-run all of the code below
+// and try to bind API_PORT a second time -> EADDRINUSE, which is what
+// caused the bot-band/restart-loop you saw. This flag makes the whole
+// startup block (banner, intervals, HTTP server, loadExistingSessions)
+// run at most once per process, no matter how many times the file is
+// required.
+// ════════════════════════════════════════════════════════════
+if (global.__US_MOD_MD_BOOTED__) {
+    module.exports = global.__US_MOD_MD_EXPORTS__;
+    return;
+}
+global.__US_MOD_MD_BOOTED__ = true;
+
 // ── Startup credit banner ─────────────────────────────────────
 console.log(chalk.cyan(`
 ╔══════════════════════════════════════════╗
@@ -53,16 +73,32 @@ console.log(chalk.cyan(`
 store.readFromFile();
 setInterval(() => store.writeToFile(), settings.storeWriteInterval || 60_000); // 60s instead of 10s
 
+// ── Graceful shutdown helper ──────────────────────────────────
+// Closes the HTTP server (releasing the port) before exiting, so a
+// fast restart never hits EADDRINUSE. exitServerThenProcess() is used
+// everywhere instead of a bare process.exit(1).
+let httpServerRef = null; // assigned once the server below is created
+function exitServerThenProcess(code) {
+    if (httpServerRef) {
+        httpServerRef.close(() => process.exit(code));
+        // Safety net: if close() hangs (e.g. open keep-alive sockets),
+        // force exit after 2s so the bot doesn't hang forever.
+        setTimeout(() => process.exit(code), 2000);
+    } else {
+        process.exit(code);
+    }
+}
+
 // ── Auto-restart on uncaught errors ──────────────────────────
 process.on('uncaughtException', (err) => {
     console.error('💥 uncaughtException:', err.message);
     console.log('🔄 Restarting in 5s...');
-    setTimeout(() => process.exit(1), 5000);
+    setTimeout(() => exitServerThenProcess(1), 5000);
 });
 process.on('unhandledRejection', (reason) => {
     console.error('💥 unhandledRejection:', reason);
     console.log('🔄 Restarting in 5s...');
-    setTimeout(() => process.exit(1), 5000);
+    setTimeout(() => exitServerThenProcess(1), 5000);
 });
 
 // ── RAM + Disk monitor ────────────────────────────────────────
@@ -99,8 +135,8 @@ setInterval(() => {
     const ram = process.memoryUsage().rss / 1024 / 1024;
     const heap = process.memoryUsage().heapUsed / 1024 / 1024;
 
-    // ⚠️ 450MB — trigger GC + clear caches before it gets critical
-    if (ram > 450) {
+    // ⚠️ 750MB — trigger GC + clear caches before it gets critical
+    if (ram > 750) {
         console.log(`⚠️ RAM ${ram.toFixed(0)}MB — clearing caches...`);
         if (global.gc) global.gc();
         if (global.mediaCache) global.mediaCache = {};
@@ -112,10 +148,10 @@ setInterval(() => {
         cleanOldFiles(path.join(__dirname, 'downloads'), 5 * 60 * 1000);
     }
 
-    // 🚨 490MB — bot band hone wala hai, restart karo
-    if (ram > 490) {
-        console.log(`🚨 RAM ${ram.toFixed(0)}MB CRITICAL (limit 512MB) — restarting now!`);
-        process.exit(1);
+    // 🚨 850MB — bot band hone wala hai, restart karo
+    if (ram > 850) {
+        console.log(`🚨 RAM ${ram.toFixed(0)}MB CRITICAL — restarting now!`);
+        exitServerThenProcess(1);
     }
 }, 15_000); // check every 15 seconds
 
@@ -130,7 +166,7 @@ setInterval(() => {
     }
     if (diskUsed >= 95) {
         console.log(`🚨 Disk ${diskUsed}% CRITICAL — force restarting!`);
-        process.exit(1);
+        exitServerThenProcess(1);
     }
 }, 5 * 60 * 1000); // disk check every 5 minutes
 
@@ -164,7 +200,7 @@ function parseBody(req) {
     });
 }
 
-http.createServer(async (req, res) => {
+const apiServer = http.createServer(async (req, res) => {
     // CORS preflight
     if (req.method === 'OPTIONS') { res.writeHead(204, { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'Content-Type,x-api-secret', 'Access-Control-Allow-Methods': 'GET,POST,OPTIONS' }); return res.end(); }
 
@@ -192,6 +228,11 @@ http.createServer(async (req, res) => {
             return res.end(fs.readFileSync(imgPath));
         }
         res.writeHead(404); return res.end('Not found');
+    }
+
+    // Health check (used by railway.toml healthcheckPath)
+    if (req.method === 'GET' && url === '/health') {
+        return jsonRes(res, 200, { success: true, status: 'ok', uptime: process.uptime() });
     }
 
     // Auth check for API routes
@@ -239,6 +280,7 @@ http.createServer(async (req, res) => {
 }).listen(API_PORT, '0.0.0.0', () => {
     console.log(chalk.cyan(`🔌 Pairing API running on port ${API_PORT}`));
 });
+httpServerRef = apiServer;
 
 // ─────────────────────────────────────────
 // Start a WhatsApp session for a phone
@@ -374,7 +416,7 @@ async function loadExistingSessions() {
         // RAM check — agar 180MB se zyada hai toh wait karo
         let ramMB = process.memoryUsage().rss / 1024 / 1024;
         let waited = 0;
-        while (ramMB > 450 && waited < 30000) {
+        while (ramMB > 700 && waited < 30000) {
             console.log(chalk.yellow(`Waiting... RAM ${ramMB.toFixed(0)}MB high, next session hold...`));
             await delay(5000);
             waited += 5000;
@@ -395,3 +437,4 @@ loadExistingSessions();
 // (auto-restart handlers are registered above at startup)
 
 module.exports = { startPairingSession, activeSessions };
+global.__US_MOD_MD_EXPORTS__ = module.exports;

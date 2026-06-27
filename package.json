@@ -4,11 +4,11 @@
   "description": "US MOD MD - WhatsApp Bot by USMAN KHAN CHACHAR",
   "main": "index.js",
   "scripts": {
-    "start": "node --max-old-space-size=180 --optimize-for-size --expose-gc index.js",
-    "start:optimized": "node --max-old-space-size=180 --optimize-for-size --gc-interval=100 --expose-gc index.js",
+    "start": "node --max-old-space-size=500 --optimize-for-size --expose-gc index.js",
+    "start:optimized": "node --max-old-space-size=500 --optimize-for-size --gc-interval=100 --expose-gc index.js",
     "install:panel": "npm install --legacy-peer-deps",
     "install:force": "npm install --force",
-    "start:pm2": "pm2 start index.js --name us-mod-md --node-args='--max-old-space-size=180 --expose-gc' --max-memory-restart 220M --restart-delay=5000 --no-autorestart false",
+    "start:pm2": "pm2 start index.js --name us-mod-md --node-args='--max-old-space-size=500 --expose-gc' --max-memory-restart 550M --restart-delay=5000 --no-autorestart false",
     "stop:pm2": "pm2 stop us-mod-md",
     "logs:pm2": "pm2 logs us-mod-md"
   },

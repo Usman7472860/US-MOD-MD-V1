@@ -7,6 +7,13 @@
 
 /**
  * US MOD MD - Pairing Website Server
+ *
+ * ⚠️ NOT THE ENTRYPOINT. package.json's "main"/"start" script runs
+ * index.js, which has its own built-in pairing HTTP server + session
+ * manager. This file (server.js) and session_manager.js are a separate,
+ * unused implementation of the same thing — kept here for reference only.
+ * DO NOT run this file alongside index.js: both try to bind the same
+ * PORT env var and will collide with EADDRINUSE.
  */
 
 const http = require('http');
@@ -43,9 +50,10 @@ setInterval(() => store.writeToFile(), settings.storeWriteInterval || 10_000);
 // Memory check
 setInterval(() => {
     const used = process.memoryUsage().rss / 1024 / 1024;
-    if (used > 500) {
+    if (used > 800) {
         console.log('⚠️ RAM high, restarting...');
-        process.exit(1);
+        server.close(() => process.exit(1));
+        setTimeout(() => process.exit(1), 2000);
     }
 }, 30_000);
 
