@@ -1,14 +1,39 @@
+/**
+ * US MOD MD — WhatsApp Bot
+ * Developed & Owned by: USMAN KHAN CHACHAR
+ * GitHub / Credit must remain intact. Do not remove or alter this header.
+ * Unauthorized redistribution without credit is a violation of the license.
+ */
+
 const { sleep } = require('../../lib/myfunc');
 
 const channelInfo = {
     contextInfo: {
         forwardedNewsletterMessageInfo: {
-            newsletterJid: '120363161513685998@newsletter',
+            newsletterJid: '120363428492698734@newsletter',
             newsletterName: 'US MOD BOT',
             serverMessageId: -1
         }
     }
 };
+
+// NOTE: We deliberately do NOT call sock.requestPairingCode() on the bot's
+// own already-connected socket here. Calling requestPairingCode() on a
+// socket that is already registered/connected causes Baileys to close
+// that connection — which logs the bot itself out. Instead we spin up a
+// brand-new, isolated session (same logic the web dashboard /pair API
+// uses) for the *target* number, so the bot's own connection is untouched.
+let pairingSessionApi = null;
+function getPairingSessionApi() {
+    if (pairingSessionApi) return pairingSessionApi;
+    try {
+        // index.js exports { startPairingSession, activeSessions }
+        pairingSessionApi = require('../../index.js');
+    } catch (e) {
+        pairingSessionApi = null;
+    }
+    return pairingSessionApi;
+}
 
 async function pairCommand(sock, chatId, message, q) {
     try {
@@ -46,7 +71,20 @@ async function pairCommand(sock, chatId, message, q) {
         await sleep(2000);
 
         try {
-            const code = await sock.requestPairingCode(number);
+            const api = getPairingSessionApi();
+            if (!api || typeof api.startPairingSession !== 'function') {
+                throw new Error('Pairing session module not available (index.js export missing)');
+            }
+
+            const code = await api.startPairingSession(number);
+
+            if (code === 'already-connected') {
+                return await sock.sendMessage(chatId, {
+                    text: `ℹ️ Yeh number already connected hai.`,
+                    ...channelInfo
+                }, { quoted: message });
+            }
+
             const formatted = code?.match(/.{1,4}/g)?.join('-') || code;
 
             await sock.sendMessage(chatId, {

@@ -1,4 +1,11 @@
 /**
+ * US MOD MD — WhatsApp Bot
+ * Developed & Owned by: USMAN KHAN CHACHAR
+ * GitHub / Credit must remain intact. Do not remove or alter this header.
+ * Unauthorized redistribution without credit is a violation of the license.
+ */
+
+/**
  * US MOD BOT - A WhatsApp Bot
  * Autoread Command - Automatically read all messages
  */
@@ -12,6 +19,8 @@ const configPath = path.join(__dirname, '..', 'data', 'autoread.json');
 
 // Initialize configuration file if it doesn't exist
 function initConfig() {
+    const dataDir = path.dirname(configPath);
+    if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir, { recursive: true });
     if (!fs.existsSync(configPath)) {
         fs.writeFileSync(configPath, JSON.stringify({ enabled: false }, null, 2));
     }
@@ -31,7 +40,7 @@ async function autoreadCommand(sock, chatId, message) {
                     
                     
                     forwardedNewsletterMessageInfo: {
-                        newsletterJid: '120363161513685998@newsletter',
+                        newsletterJid: '120363428492698734@newsletter',
                         newsletterName: 'US MOD BOT',
                         serverMessageId: -1
                     }
@@ -62,7 +71,7 @@ async function autoreadCommand(sock, chatId, message) {
                         
                         
                         forwardedNewsletterMessageInfo: {
-                            newsletterJid: '120363161513685998@newsletter',
+                            newsletterJid: '120363428492698734@newsletter',
                             newsletterName: 'US MOD BOT',
                             serverMessageId: -1
                         }
@@ -85,7 +94,7 @@ async function autoreadCommand(sock, chatId, message) {
                 
                 
                 forwardedNewsletterMessageInfo: {
-                    newsletterJid: '120363161513685998@newsletter',
+                    newsletterJid: '120363428492698734@newsletter',
                     newsletterName: 'US MOD BOT',
                     serverMessageId: -1
                 }
@@ -100,7 +109,7 @@ async function autoreadCommand(sock, chatId, message) {
                 
                 
                 forwardedNewsletterMessageInfo: {
-                    newsletterJid: '120363161513685998@newsletter',
+                    newsletterJid: '120363428492698734@newsletter',
                     newsletterName: 'US MOD BOT',
                     serverMessageId: -1
                 }

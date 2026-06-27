@@ -1,3 +1,10 @@
+/**
+ * US MOD MD — WhatsApp Bot
+ * Developed & Owned by: USMAN KHAN CHACHAR
+ * GitHub / Credit must remain intact. Do not remove or alter this header.
+ * Unauthorized redistribution without credit is a violation of the license.
+ */
+
 const isOwnerOrSudo = require('../../lib/isOwner');
 
 const fmt = (msg) => `╭───(    US MOD MD V3    )───\n├───≫ CALL PRIVACY ≪───\n├ \n├ ${msg}\n╰──────────────────☉\n> ©𝐔𝐬𝐦𝐚𝐧 𝐊𝐡𝐚𝐧 𝐂𝐡𝐚𝐜𝐡𝐚𝐫`;
