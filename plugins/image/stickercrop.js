@@ -1,3 +1,10 @@
+/**
+ * US MOD MD — WhatsApp Bot
+ * Developed & Owned by: USMAN KHAN CHACHAR
+ * GitHub / Credit must remain intact. Do not remove or alter this header.
+ * Unauthorized redistribution without credit is a violation of the license.
+ */
+
 const { downloadMediaMessage } = require('@whiskeysockets/baileys');
 const { exec } = require('child_process');
 const fs = require('fs');
@@ -36,7 +43,7 @@ async function stickercropCommand(sock, chatId, message) {
                 
                 
                 forwardedNewsletterMessageInfo: {
-                    newsletterJid: '120363161513685998@newsletter',
+                    newsletterJid: '120363428492698734@newsletter',
                     newsletterName: 'US MOD BOT',
                     serverMessageId: -1
                 }
@@ -58,7 +65,7 @@ async function stickercropCommand(sock, chatId, message) {
                     
                     
                     forwardedNewsletterMessageInfo: {
-                        newsletterJid: '120363161513685998@newsletter',
+                        newsletterJid: '120363428492698734@newsletter',
                         newsletterName: 'US MOD BOT',
                         serverMessageId: -1
                     }
@@ -186,7 +193,7 @@ async function stickercropCommand(sock, chatId, message) {
                 
                 
                 forwardedNewsletterMessageInfo: {
-                    newsletterJid: '120363161513685998@newsletter',
+                    newsletterJid: '120363428492698734@newsletter',
                     newsletterName: 'US MOD BOT',
                     serverMessageId: -1
                 }

