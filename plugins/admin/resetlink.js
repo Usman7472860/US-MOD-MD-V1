@@ -1,3 +1,10 @@
+/**
+ * US MOD MD — WhatsApp Bot
+ * Developed & Owned by: USMAN KHAN CHACHAR
+ * GitHub / Credit must remain intact. Do not remove or alter this header.
+ * Unauthorized redistribution without credit is a violation of the license.
+ */
+
 async function resetlinkCommand(sock, chatId, senderId) {
     try {
         // Check if sender is admin
