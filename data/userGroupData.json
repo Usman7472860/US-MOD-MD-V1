@@ -10,7 +10,7 @@
   "chatbot": {},
   "autoReaction": false,
   "antitag": {
-    "120363423221204328@g.us": {
+    "120363428492698734@g.us": {
       "enabled": true,
       "action": "delete"
     }
